@@ -1,0 +1,571 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lockwood | An AI agent for tax diligence on business sales</title>
+<meta name="description" content="Lockwood is an AI agent for tax diligence on business sales. It reads the records, finds the tax issues a buyer's review would find, prices each one, and ties every finding to the page and line it came from.">
+<meta property="og:title" content="Lockwood | An AI agent for tax diligence on business sales">
+<meta property="og:description" content="Find the tax issues a buyer will find, before they price them in. Every number tied to its source page.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#FFFFFF">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230E2F33'/%3E%3Ctext x='16' y='23' text-anchor='middle' font-family='Georgia,serif' font-size='21' fill='%239FC9C3'%3EL%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&display=swap">
+<style>:root{--deep:#0e2f33;--current:#2c6e6f;--clear:#9fc9c3;--stone:#56625f;--mist:#f1f5f4;--willow:#5a6c43;--deep-2:#17434a;--white:#fff;--ink:#13201f;--ink-3:#66726f;--rule:#dce4e2;--rule-2:#c3d0cd;--willow-2:#b3c394;--clear-soft:#e6f0ee;--on-dark:#b7cbc8;--red:#9a3a2a;--serif:"Hanken Grotesk", "Helvetica Neue", Arial, sans-serif;--sans:"Hanken Grotesk", "Helvetica Neue", Arial, sans-serif;--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light}*{box-sizing:border-box}[hidden]{display:none!important}html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,:before,:after{transition:none!important;animation:none!important}}body{background:var(--white);color:var(--ink);font:400 17px/1.6 var(--sans);-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums lining-nums;margin:0;overflow-x:hidden}h1,h2,h3,p{margin:0}h1,h2{font-family:var(--serif);letter-spacing:-.032em;text-wrap:balance;font-optical-sizing:auto;font-weight:500;line-height:1.04}h3{font-family:var(--sans);letter-spacing:-.005em;font-size:17px;font-weight:600;line-height:1.35}a{color:inherit}button,input,select{font:inherit;color:inherit}button{cursor:pointer}:focus-visible{outline:2px solid var(--current);outline-offset:3px;border-radius:2px}.sr{clip:rect(0 0 0 0);white-space:nowrap;width:1px;height:1px;position:absolute;overflow:hidden}.wrap{max-width:1160px;padding-inline:max(28px, env(safe-area-inset-left,0px));margin:0 auto}@media (max-width:560px){.wrap{padding-inline-start:18px;padding-inline-end:18px}}.kicker{font:500 14.5px/1.4 var(--sans);color:var(--current);letter-spacing:.01em}.dark .kicker{color:var(--clear)}.muted{color:var(--stone)}.fine{color:var(--ink-3);font-size:13px;line-height:1.55}.top{z-index:20;-webkit-backdrop-filter:saturate(1.4)blur(10px);border-bottom:1px solid var(--rule);background:#ffffffeb;position:sticky;top:0}.top .wrap,footer .wrap{max-width:none;padding-inline-start:clamp(20px,2.6vw,44px);padding-inline-end:clamp(20px,2.6vw,44px)}.top .wrap{justify-content:space-between;align-items:center;gap:20px;height:72px;display:flex}.brand{align-items:baseline;gap:12px;text-decoration:none;display:flex}.brand b{font:500 28px/1 var(--serif);letter-spacing:.005em}.brand span{color:var(--ink-3);border-left:1px solid var(--rule-2);padding-left:12px;font-size:12.5px}.nav{align-items:center;gap:30px;font-size:14.5px;display:flex}.nav a:not(.btn){color:var(--stone);text-decoration:none}.nav a:not(.btn):hover{color:var(--ink)}@media (max-width:880px){.nav a:not(.btn),.brand span{display:none}}.btn{border:1px solid var(--ink);min-height:50px;color:var(--ink);white-space:nowrap;background:0 0;border-radius:2px;justify-content:center;align-items:center;gap:10px;padding:0 26px;font-size:15px;font-weight:500;text-decoration:none;transition:background .15s,color .15s,border-color .15s;display:inline-flex}.btn:hover{background:var(--ink);color:#fff}.btn.solid{background:var(--deep);border-color:var(--deep);color:#fff;font-weight:500}.btn.solid:hover{background:var(--current);border-color:var(--current);color:#fff}.btn[disabled]{opacity:.55;cursor:not-allowed}.dark .btn{color:#fff;border-color:#ffffff80}.dark .btn:hover{color:var(--deep);background:#fff}.link{color:var(--ink);text-underline-offset:5px;text-decoration:underline;-webkit-text-decoration-color:var(--current);text-decoration-color:var(--current);font-weight:500;text-decoration-thickness:1px}.link:hover{text-decoration-thickness:2px}.sec.paper{background:var(--mist)}@media (max-width:760px){.sec{padding-block-start:76px;padding-block-end:76px}}.head{grid-template-columns:minmax(0,5fr) minmax(0,6fr);align-items:end;gap:56px;margin-bottom:64px;display:grid}.head p{color:var(--stone);max-width:34em;font-size:18px}.head .kicker{grid-column:1/-1;margin-bottom:-36px}@media (max-width:900px){.head{grid-template-columns:minmax(0,1fr);gap:18px;margin-bottom:44px}.head .kicker{margin-bottom:0}}.dark{background:var(--deep);color:#fff}.dark .muted,.dark .head p{color:var(--on-dark)}.sec.dark+.sec,.sec+.sec.dark{border-top:0}.hero{border-bottom:1px solid var(--rule);padding-block-start:96px;padding-block-end:112px}.hero .wrap{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;gap:72px;display:grid}@media (max-width:1000px){.hero{padding-block-start:56px;padding-block-end:72px}.hero .wrap{grid-template-columns:minmax(0,1fr);gap:56px}}.hero h1{letter-spacing:-.04em;margin-top:22px;font-size:clamp(40px,5vw,68px);line-height:1}.hero .lede{color:var(--stone);max-width:31em;margin-top:28px;font-size:19px}.hero .ctas{flex-wrap:wrap;gap:12px;margin-top:40px;display:flex}.hero .assure{color:var(--stone);flex-wrap:wrap;gap:6px 28px;margin-top:28px;font-size:14px;display:flex}.hero .assure span{padding-left:16px;position:relative}.hero .assure span:before{content:"";background:var(--current);width:8px;height:1px;position:absolute;top:11px;left:0}.exhibit{margin:0;position:relative}.page{isolation:isolate;border:1px solid var(--rule-2);box-shadow:0 1px 0 var(--rule), 0 30px 60px -38px #0e2f3380;color:var(--stone);background:linear-gradient(#fff 0%,#f3f4f6 42%,#e4e8ee 100%);padding:26px 28px 44px;font-size:13px;position:relative;overflow:hidden;transform:rotate(-.5deg)}.page>*{z-index:1;position:relative}.page .form-h{border-bottom:2px solid var(--ink);justify-content:space-between;align-items:flex-end;gap:12px;padding-bottom:12px;display:flex}.page .form-h b{font:600 21px/1.1 var(--sans);color:var(--ink);letter-spacing:-.01em}.page .form-h span{text-align:right;font-size:11.5px;line-height:1.4}.page .ln{border-bottom:1px solid #5b64752e;grid-template-columns:34px minmax(0,1fr) 104px;align-items:baseline;gap:10px;padding:9px 0;display:grid}.page .ln i{color:var(--ink-3);font-size:12px;font-style:normal}.page .ln em{text-align:right;color:var(--ink);font-style:normal;font-weight:500}.page .ln.hit{background:linear-gradient(176deg,#0000 12%,#2c6e6f29 14%,#2c6e6f24 86%,#0000 88%);margin-inline-start:-8px;margin-inline-end:-8px;padding-inline-start:8px;padding-inline-end:8px}.page .ln.tot{border-bottom:0;font-weight:600}.page .ln.tot span{color:var(--ink)}.page .stamp{text-align:right;color:var(--ink-3);margin-top:14px;font-size:11px;display:block}.water{pointer-events:none;position:absolute;top:0;bottom:0;left:0;right:0;overflow:hidden;z-index:0!important}.water:before,.water:after{content:"";will-change:transform;mix-blend-mode:screen;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='380' height='380'%3E%3Cfilter id='c' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.0105' numOctaves='2' seed='11' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 -6 0 0 0 1.15'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23c)'/%3E%3C/svg%3E");width:calc(100% + 760px);height:calc(100% + 760px);position:absolute;top:0;left:0}.water:before{opacity:.55;background-size:380px 380px;animation:70s linear infinite drift-a;transform:translate(-380px,-380px)}.water:after{opacity:.35;background-size:560px 560px;animation:95s linear infinite drift-b;transform:translateY(-560px)}@keyframes drift-a{0%{transform:translate(-380px,-380px)}to{transform:translate(0)}}@keyframes drift-b{0%{transform:translateY(-560px)}to{transform:translate(-560px)}}.water i{background:linear-gradient(#fff0 40%,#0e2f3312 100%);position:absolute;top:0;bottom:0;left:0;right:0}.note{background:var(--deep);color:#fff;z-index:2;border-top:3px solid var(--clear);width:min(360px,88%);margin:-30px 0 0 auto;padding:22px 24px;position:relative;box-shadow:0 24px 50px -24px #0e2f33a6}.note small{color:var(--clear);font-size:12.5px;display:block}.note p{font:500 19px/1.38 var(--serif);margin-top:8px}.note dl{border-top:1px solid #ffffff2e;grid-template-columns:auto auto;justify-content:space-between;gap:6px 20px;margin:16px 0 0;padding-top:14px;font-size:13.5px;display:grid}.note dt{color:var(--on-dark)}.note dd{text-align:right;margin:0;font-weight:500}.note dd.money{color:var(--willow-2)}.exhibit .cap{color:var(--ink-3);text-align:right;margin-top:18px;font-size:12.5px}@media (max-width:520px){.page{padding:20px 16px 40px;transform:none}.page .form-h{flex-direction:column;align-items:flex-start;gap:6px}.page .form-h span{text-align:left}.note dl{gap:6px 12px;font-size:13px}.page .ln{grid-template-columns:26px minmax(0,1fr) 84px;gap:8px}.note{width:94%}}.method{border-top:1px solid #ffffff38;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;display:grid}.method>div{padding:30px 32px 0 0}.method>div+div{border-left:1px solid #ffffff24;padding-left:32px}.method .n{font:500 40px/1 var(--serif);color:var(--clear)}.method h3{font:500 27px/1.2 var(--serif);color:#fff;margin-top:18px}.method p{color:var(--on-dark);margin-top:12px;font-size:16px}@media (max-width:860px){.method{grid-template-columns:minmax(0,1fr)}.method>div,.method>div+div{border-bottom:1px solid #ffffff24;border-left:0;padding:28px 0}}.issues-list{border-top:1px solid var(--ink);grid-template-columns:repeat(2,minmax(0,1fr));column-gap:64px;display:grid}.issues-list>div{border-bottom:1px solid var(--rule);grid-template-columns:170px minmax(0,1fr);gap:20px;padding:22px 0;display:grid}.issues-list span{color:var(--current);padding-top:2px;font-size:14px}.issues-list p{color:var(--stone);margin-top:4px;font-size:15.5px}@media (max-width:900px){.issues-list{grid-template-columns:minmax(0,1fr)}}@media (max-width:520px){.issues-list>div{grid-template-columns:minmax(0,1fr);gap:4px}}.aside-note{color:var(--stone);grid-template-columns:170px minmax(0,1fr);gap:20px;max-width:760px;margin-top:36px;font-size:15.5px;display:grid}.aside-note b{color:var(--ink);font-size:14px;font-weight:500}@media (max-width:520px){.aside-note{grid-template-columns:minmax(0,1fr);gap:4px}}.quiz{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);align-items:start;gap:32px;display:grid}@media (max-width:1000px){.quiz{grid-template-columns:minmax(0,1fr)}}.panel{border:1px solid var(--rule-2);background:#fff;min-width:0;padding:36px}@media (max-width:520px){.panel{padding:22px}}.q{gap:12px;display:grid}.q+.q{border-top:1px solid var(--rule);margin-top:26px;padding-top:26px}.ql{font-size:16.5px;font-weight:500;line-height:1.45}.q small{color:var(--ink-3);font-size:14px}.seg{flex-wrap:wrap;gap:8px;display:flex}.seg button{border:1px solid var(--rule-2);color:var(--stone);background:#fff;border-radius:2px;padding:9px 16px;font-size:14.5px;transition:all .15s}.seg button:hover{border-color:var(--ink);color:var(--ink)}.seg button[aria-pressed=true]{background:var(--deep);color:#fff;border-color:var(--deep)}.field{border:1px solid var(--rule-2);background:#fff;align-items:center;max-width:280px;display:flex}.field span{color:var(--ink-3);padding-left:12px}.field input{background:0 0;border:0;outline:none;width:100%;padding:12px 12px 12px 6px;font-size:16px}.sub{background:var(--mist);border-left:2px solid var(--clear);gap:14px;padding:18px;display:grid}.check{color:var(--stone);align-items:flex-start;gap:10px;font-size:15px;display:flex}.check input{width:16px;height:16px;accent-color:var(--deep);flex:none;margin-top:5px}.result{position:sticky;top:96px}@media (max-width:1000px){.result{position:static}}.score{grid-template-columns:auto minmax(0,1fr);align-items:center;gap:22px;display:grid}.dial{width:104px;height:104px}.dial .trk{stroke:var(--rule)}.dial .val{stroke:var(--current);transition:stroke-dashoffset .6s}.dial text{fill:var(--ink);font-family:var(--serif)}.score h3{font:500 27px/1.15 var(--serif)}.score p{color:var(--stone);margin-top:8px;font-size:15px}.expo{background:var(--clear-soft);border-left:2px solid var(--current);gap:4px;margin-top:24px;padding:18px 20px;display:grid}.expo small{color:var(--stone);font-size:13px}.expo b{font:500 clamp(28px, 3vw, 34px)/1.1 var(--serif);color:var(--deep)}.expo span{color:var(--stone);font-size:13px}.ilist{margin:18px 0 0;padding:0;list-style:none;display:grid}.ilist li{border-bottom:1px solid var(--rule);grid-template-columns:70px minmax(0,1fr) auto;align-items:baseline;gap:14px;padding:14px 0;display:grid}.ilist li:last-child{border-bottom:0}@media (max-width:420px){.ilist li{grid-template-columns:58px minmax(0,1fr)}.ilist .amt{text-align:left;grid-column:2}}.sev{font-size:12.5px;font-weight:600}.sev.high{color:var(--red)}.sev.med{color:var(--current)}.sev.low{color:var(--ink-3)}.ilist b{font-size:15px;font-weight:600;line-height:1.35;display:block}.ilist p{color:var(--stone);margin-top:3px;font-size:14px}.ilist .amt{text-align:right;white-space:nowrap;font-size:14px;font-weight:500}.empty{border:1px dashed var(--rule-2);color:var(--stone);margin-top:20px;padding:18px;font-size:15px}.row{flex-wrap:wrap;align-items:center;gap:10px;display:flex}.agent{grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);align-items:start;gap:80px;display:grid}@media (max-width:1000px){.agent{grid-template-columns:minmax(0,1fr);gap:48px}}.agent h2{margin-top:16px;font-size:clamp(34px,4vw,52px)}.agent .intro{color:var(--on-dark);margin-top:22px;font-size:18px}.steps{counter-reset:s;border-top:1px solid #fff3;margin:36px 0 0;padding:0;list-style:none}.steps li{counter-increment:s;border-bottom:1px solid #ffffff1f;grid-template-columns:44px minmax(0,1fr);gap:12px;padding:18px 0;display:grid}.steps li:before{content:counter(s);font:500 22px/1.2 var(--serif);color:var(--clear)}.steps b{font-size:16px;font-weight:600;display:block}.steps span{color:var(--on-dark);font-size:15px}.phone{color:var(--ink);background:#fff;border:1px solid #fff3;justify-self:center;width:100%;max-width:540px;box-shadow:0 40px 80px -40px #0009}.screen-h{border-bottom:1px solid var(--rule);justify-content:space-between;align-items:center;gap:12px;padding:16px 18px;display:flex}.screen-h b{font:500 19px/1.2 var(--serif)}.screen-h small{color:var(--stone);font-size:12.5px}.feed{background:var(--mist);scrollbar-width:thin;gap:10px;max-height:560px;padding:18px;display:grid;overflow-y:auto}.msg{border:1px solid var(--rule);background:#fff;max-width:92%;padding:13px 15px;font-size:14.5px;line-height:1.55;animation:.6s both rise}@keyframes rise{0%{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}.msg time{color:var(--ink-3);margin-bottom:6px;font-size:12px;display:block}.msg .fig{color:var(--current);font-weight:600}.msg .q-line{border-left:2px solid var(--clear);background:var(--clear-soft);font:italic 14px/1.5 var(--serif);color:var(--stone);margin-top:8px;padding:8px 10px;display:block}.msg .acts{flex-wrap:wrap;gap:6px;margin-top:10px;display:flex}.msg .acts span{border:1px solid var(--rule-2);color:var(--stone);padding:5px 11px;font-size:13px;font-weight:500}.msg .acts span.ok{background:var(--deep);color:#fff;border-color:var(--deep)}.msg.me{background:var(--deep);border-color:var(--deep);color:#fff;justify-self:end}.msg.me time{color:var(--clear)}.replay-bar{border-top:1px solid var(--rule);color:var(--ink-3);justify-content:space-between;align-items:center;gap:10px;padding:12px 18px;font-size:13px;display:flex}.replay-bar .btn{color:var(--ink);border-color:var(--rule-2)}.replay-bar .btn:hover{background:var(--ink);color:#fff}.docs{grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;display:grid}@media (max-width:1000px){.docs{grid-template-columns:minmax(0,1fr)}}.doc{border-top:2px solid var(--ink);align-content:start;gap:8px;padding-top:22px;display:grid}.doc small{color:var(--current);font-size:13.5px}.doc h3{font:500 26px/1.2 var(--serif)}.doc table{border-collapse:collapse;width:100%;margin-top:14px;font-size:14px}.doc td{border-bottom:1px solid var(--rule);vertical-align:top;color:var(--stone);padding:9px 0}.doc td+td{text-align:right;color:var(--ink);white-space:nowrap;padding-left:12px;font-weight:500}.doc td.money{color:var(--willow)}.doc .quoteblock{background:var(--mist);font:italic 16px/1.6 var(--serif);color:var(--stone);margin-top:14px;padding:14px 16px}.paths{border-top:1px solid var(--ink);grid-template-columns:repeat(2,minmax(0,1fr));gap:0;display:grid}.paths>div{align-content:start;gap:14px;padding:36px 44px 8px 0;display:grid}.paths>div+div{border-left:1px solid var(--rule);padding-left:44px}.paths h3{font:500 32px/1.15 var(--serif)}.paths p{color:var(--stone)}@media (max-width:860px){.paths{grid-template-columns:minmax(0,1fr)}.paths>div,.paths>div+div{border-left:0;border-bottom:1px solid var(--rule);padding:32px 0}}.plans{border:1px solid var(--rule-2);background:#fff;grid-template-columns:repeat(3,minmax(0,1fr));display:grid}.plan{grid-template-rows:auto auto auto auto 1fr auto;gap:14px;padding:36px 34px;display:grid;position:relative}.plan+.plan{border-left:1px solid var(--rule-2)}.plan.pick{background:var(--deep);color:#fff}.plan.pick p,.plan.pick ul{color:var(--on-dark)}.plan.pick .tag{color:var(--clear)}.plan .tag{color:var(--current);min-height:1.4em;font-size:13px}.plan h3{font:500 27px/1.2 var(--serif)}.plan .price{font:500 46px/1 var(--serif);letter-spacing:-.01em}.plan .price small{font:400 14px/1 var(--sans);color:var(--ink-3);margin-left:8px}.plan.pick .price small{color:var(--on-dark)}.plan p{color:var(--stone);font-size:15.5px}.plan ul{color:var(--stone);border-top:1px solid var(--rule);align-content:start;gap:10px;margin:0;padding:18px 0 0;font-size:15px;list-style:none;display:grid}.plan.pick ul{border-color:#ffffff29}.plan li{padding-left:20px;position:relative}.plan li:before{content:"";background:var(--current);width:10px;height:1px;position:absolute;top:12px;left:0}.plan .btn{width:100%}.plan.pick .btn{background:var(--clear);border-color:var(--clear);color:var(--deep)}.plan.pick .btn:hover{background:#e5c52f;border-color:#e5c52f}@media (max-width:1000px){.plans{grid-template-columns:minmax(0,1fr)}.plan+.plan{border-left:0;border-top:1px solid var(--rule-2)}}.faq{max-width:820px}.faq h2{margin-bottom:18px;font-size:38px}.faq details{border-bottom:1px solid var(--rule);padding:20px 0}.faq details:first-of-type{border-top:1px solid var(--ink)}.faq summary{cursor:pointer;justify-content:space-between;gap:16px;font-size:16.5px;font-weight:500;list-style:none;display:flex}.faq summary::-webkit-details-marker{display:none}.faq summary:after{content:"+";font:500 22px/1 var(--serif);color:var(--current)}.faq details[open] summary:after{content:"−"}.faq details p{color:var(--stone);max-width:38em;margin-top:12px;font-size:15.5px}.capture{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:end;gap:56px;display:grid}.capture h2{margin-top:14px;font-size:clamp(32px,3.6vw,44px)}.capture p{color:var(--stone);margin-top:14px}.capture form{border-bottom:1px solid var(--ink);gap:0;display:flex;position:relative}.capture input[type=email]{background:0 0;border:0;outline:none;flex:1;min-width:0;padding:14px 0;font-size:18px}.capture .btn:hover{color:var(--current);background:0 0}@media (max-width:860px){.capture{grid-template-columns:minmax(0,1fr);gap:24px}}@media (max-width:420px){.capture .btn{padding-left:10px;font-size:14px}}.overlay{z-index:50;background:#0e2f338c;place-items:center;padding:16px;display:grid;position:fixed;top:0;bottom:0;left:0;right:0}.dialog{border-top:3px solid var(--current);background:#fff;gap:16px;width:100%;max-width:540px;max-height:100%;padding:40px;display:grid;overflow-y:auto;box-shadow:0 40px 100px -30px #0e2f3380}@media (max-width:520px){.dialog{padding:26px}}.dialog h3{font:500 31px/1.15 var(--serif)}.dialog p{color:var(--stone);font-size:15.5px}.f{gap:6px;font-size:14px;font-weight:500;display:grid}.f input,.f select{border:1px solid var(--rule-2);background:#fff;border-radius:2px;width:100%;padding:12px;font-size:16px;font-weight:400}.f input:focus,.f select:focus{border-color:var(--deep);outline:none;box-shadow:0 0 0 3px #0e2f331a}.f input[aria-invalid=true]{border-color:var(--red)}.err{color:var(--red);font-size:13.5px;font-weight:500}.two{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;display:grid}@media (max-width:520px){.two{grid-template-columns:minmax(0,1fr)}}.chosen{border-block:1px solid var(--rule);justify-content:space-between;align-items:baseline;gap:12px;padding:14px 0;font-size:15px;display:flex}.chosen b{font:500 23px/1 var(--serif)}.copybox{background:var(--mist);white-space:pre-wrap;-webkit-user-select:all;user-select:all;color:var(--stone);padding:14px;font-size:14px;line-height:1.6}.doors{border-top:1px solid var(--ink);grid-template-columns:repeat(2,minmax(0,1fr));margin-top:40px;display:grid}.doors a{border-bottom:1px solid var(--rule-2);gap:4px;padding:20px 20px 22px 0;text-decoration:none;display:grid}.doors a+a{border-left:1px solid var(--rule-2);padding-left:22px}.doors b{font:500 27px/1.2 var(--serif)}.doors span{color:var(--stone);font-size:14.5px}.doors a:hover b{text-underline-offset:5px;text-decoration:underline;-webkit-text-decoration-color:var(--current);text-decoration-color:var(--current);text-decoration-thickness:1px}@media (max-width:480px){.doors{grid-template-columns:minmax(0,1fr)}.doors a+a{border-left:0;padding-left:0}}.photo{background:var(--deep);color:#fff;align-items:flex-end;min-height:clamp(380px,46vw,600px);display:flex;position:relative;overflow:hidden}.photo img{object-fit:cover;object-position:center 45%;filter:saturate(.7)contrast(1.02)brightness(.92);width:100%;height:100%;position:absolute;top:0;bottom:0;left:0;right:0}.photo:before{content:"";background:var(--deep);mix-blend-mode:color;opacity:.35;position:absolute;top:0;bottom:0;left:0;right:0}.photo:after{content:"";background:linear-gradient(180deg, #0e2f3300 30%, #0e2f338c 68%, var(--deep) 100%), linear-gradient(90deg, #0e2f338c 0%, #0e2f3300 60%);position:absolute;top:0;bottom:0;left:0;right:0}.photo .wrap{z-index:1;width:100%;padding-block-start:0;padding-block-end:64px;position:relative}.photo h2{max-width:13em;font-size:clamp(34px,4.4vw,58px)}.photo p{color:#c3cbda;max-width:34em;margin-top:18px;font-size:18px}.photo .kicker{color:var(--clear);margin-bottom:16px}.photo+.sec.dark{border-top:0;padding-top:56px}@media (max-width:560px){.photo{min-height:640px}.photo img{object-position:center 40%;height:62%}.photo:before,.photo:after{height:100%}.photo:after{background:linear-gradient(180deg, #0e2f3300 25%, #0e2f33b3 52%, var(--deep) 64%)}.photo .wrap{padding-bottom:44px}.photo p{font-size:16.5px}}.plans.two{grid-template-columns:repeat(2,minmax(0,1fr))}@media (max-width:1000px){.plans.two{grid-template-columns:minmax(0,1fr)}}.subhead{flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px 24px;margin:72px 0 24px;display:flex}.subhead h3{font:500 30px/1.2 var(--serif)}.subhead p{color:var(--stone);max-width:36em;font-size:15.5px}.who{grid-template-columns:repeat(3,minmax(0,1fr));gap:40px;margin-top:56px;display:grid}.who>div{border-top:1px solid var(--ink);padding-top:20px}.who h3{font:500 24px/1.2 var(--serif)}.who p{color:var(--stone);margin-top:10px;font-size:15.5px}@media (max-width:860px){.who{grid-template-columns:minmax(0,1fr);gap:28px}}.desk-intro{border-top:1px solid #ffffff2e;grid-template-columns:minmax(0,5fr) minmax(0,6fr);align-items:end;gap:56px;margin-top:112px;padding-top:56px;display:grid}.desk-intro h3{font:500 clamp(28px, 3vw, 38px)/1.15 var(--serif)}.desk-intro p{color:var(--on-dark);max-width:34em;font-size:17px}@media (max-width:900px){.desk-intro{grid-template-columns:minmax(0,1fr);gap:16px;margin-top:72px}}.desk{color:var(--ink);background:#fff;border:1px solid #fff3;margin-top:40px;box-shadow:0 50px 90px -50px #000000b3}.desk-bar{border-bottom:1px solid var(--rule);background:var(--mist);color:var(--ink-3);align-items:center;gap:14px;padding:12px 18px;font-size:13px;display:flex}.desk-bar .dots{gap:6px;display:flex}.desk-bar .dots i{background:var(--rule-2);border-radius:50%;width:9px;height:9px;display:block}.desk-bar .url{border:1px solid var(--rule);white-space:nowrap;text-overflow:ellipsis;background:#fff;flex:1;min-width:0;padding:5px 12px;overflow:hidden}.desk-chat{background:var(--mist);border-right:1px solid var(--rule);align-content:start;gap:10px;padding:22px;display:grid}.desk-chat .msg{max-width:94%;animation:none}.desk-chat .msg .acts span{cursor:default}.desk-file{align-content:start;gap:22px;padding:22px 24px 26px;display:grid}.desk-file h4{font:600 13.5px/1.3 var(--sans);color:var(--ink);margin:0 0 10px}.desk-file .deal{justify-content:space-between;align-items:baseline;gap:12px;display:flex}.desk-file .deal b{font:500 22px/1.2 var(--serif)}.desk-file .deal span{color:var(--ink-3);font-size:12.5px}.stage{color:var(--ink-3);grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;margin:0;padding:0;font-size:11.5px;list-style:none;display:grid}.stage li{border-top:3px solid var(--rule);padding-top:6px;line-height:1.3}.stage li.done{border-color:var(--clear)}.stage li.now{border-color:var(--current);color:var(--ink);font-weight:600}.fnd{border-top:1px solid var(--rule);gap:4px;padding:12px 0;font-size:13.5px;display:grid}.fnd:last-of-type{border-bottom:1px solid var(--rule)}.fnd .t{justify-content:space-between;gap:12px;display:flex}.fnd .t b{font-weight:600}.fnd .t span{color:var(--ink-3);white-space:nowrap}.bar{background:var(--mist);height:10px;margin-top:4px;position:relative}.bar i{background:var(--current);opacity:.85;position:absolute;top:0;bottom:0}.axis{color:var(--ink-3);justify-content:space-between;margin-top:6px;font-size:11px;display:flex}.fnd.open{background:var(--clear-soft);margin-inline-start:-12px;margin-inline-end:-12px;padding-inline-start:12px;padding-inline-end:12px}.src{border:1px solid var(--rule-2);color:var(--stone);background:#fff;gap:3px;margin-top:8px;padding:10px 12px;font-size:12.5px;display:grid}.src small{color:var(--ink-3);font-size:11.5px}.src mark{color:var(--ink);background:#2c6e6f29;padding:0 2px}.src .how{border-top:1px solid var(--rule);margin-top:6px;padding-top:6px;font-size:12px}.wait{border-left:2px solid var(--current);padding:10px 0 10px 14px;font-size:13.5px}.wait .row{gap:8px;margin-top:10px}.wait .yn{border:1px solid var(--rule-2);padding:6px 16px;font-size:13px;font-weight:500}.wait .yn.ok{background:var(--deep);color:#fff;border-color:var(--deep)}.docs-in{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:6px 16px;margin:0;padding:0;font-size:13px;list-style:none;display:grid}.docs-in li{color:var(--stone);padding-left:20px;position:relative}.docs-in li:before{content:"";border:1px solid var(--rule-2);width:11px;height:11px;position:absolute;top:5px;left:0}.docs-in li.in{color:var(--ink)}.docs-in li.in:before{background:var(--current);border-color:var(--current)}.desk-cap{color:var(--on-dark);text-align:right;margin-top:16px;font-size:12.5px}@media (max-width:900px){.desk-body{grid-template-columns:minmax(0,1fr)}.desk-chat{border-right:0;border-bottom:1px solid var(--rule)}}@media (max-width:520px){.desk-chat,.desk-file{padding:16px}.docs-in{grid-template-columns:minmax(0,1fr)}.stage{font-size:10.5px}}footer{background:var(--deep);color:var(--on-dark);padding-block-start:80px;padding-block-end:56px;font-size:13.5px}footer .wrap{grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:56px;display:grid}footer .mark{font:500 46px/1 var(--serif);color:#fff}footer .mark small{font:400 14px/1.5 var(--sans);color:var(--on-dark);max-width:22em;margin-top:14px;display:block}footer .links{flex-wrap:wrap;justify-content:flex-end;gap:26px;margin-bottom:40px;display:flex}footer .links a{color:#fff;font-size:14.5px;text-decoration:none}footer .links a:hover{color:var(--clear)}footer .legal p+p{margin-top:10px}.hero-sign{gap:10px;max-width:540px;margin-top:34px;display:flex}.hero-sign input[type=email]{border:1px solid var(--rule-2);background:#fff;border-radius:2px;flex:1;min-width:0;min-height:50px;padding:0 16px;font-size:16px}.hero-sign input[type=email]:focus{border-color:var(--deep);outline:none;box-shadow:0 0 0 3px #0e2f331a}.hero-sign input[aria-invalid=true]{border-color:var(--red)}.hero-sign-msg{max-width:540px;margin-top:10px}.hero .doors{margin-top:30px}@media (max-width:560px){.hero{padding-top:36px}.hero h1{margin-top:14px;font-size:39px}.hero .lede{margin-top:18px;font-size:17px}.hero-sign{margin-top:22px}.hero-sign .btn{padding:0 16px}}@media (max-width:400px){.hero-sign{flex-direction:column}}@media (min-width:1001px) and (max-height:860px){.hero{padding-block-start:52px;padding-block-end:80px}.hero h1{margin-top:16px;font-size:clamp(42px,4.3vw,60px)}.hero .lede{margin-top:20px;font-size:17.5px}.hero-sign{margin-top:26px}}.hero .wrap>div:first-child>*{animation:.9s cubic-bezier(.2,.7,.2,1) both rise}.hero .wrap>div:first-child>:nth-child(2){animation-delay:60ms}.hero .wrap>div:first-child>:nth-child(3){animation-delay:.14s}.hero .wrap>div:first-child>:nth-child(n+4){animation-delay:.22s}html.lenis,html.lenis body{height:auto}.lenis.lenis-smooth{scroll-behavior:auto!important}.lenis.lenis-stopped{overflow:hidden}.world{z-index:0;opacity:0;pointer-events:none;transition:opacity 1.1s;position:fixed;top:0;bottom:0;left:0;right:0}.world.on{opacity:1}.world canvas{display:block}.beats{display:none}.has-3d main,.has-3d footer{z-index:1;position:relative}.has-3d .sec:not(.dark):not(.paper):not([data-scene]){background:var(--white)}.has-3d .hero{background:0 0;border-bottom-color:#0000}.has-3d:not(.world-mobile) .hero .page,.has-3d:not(.world-mobile) .hero .note{opacity:0;transition:opacity .7s}.has-3d .photo{background:0 0;min-height:0;display:block;overflow:visible}.has-3d .photo img,.has-3d .photo:after{display:none}.has-3d:not(.world-mobile) .photo:before{mix-blend-mode:normal;opacity:1;z-index:0;pointer-events:none;background:linear-gradient(90deg,#0e2f33f0 0%,#0e2f33db 34%,#0e2f3300 60%);display:block;-webkit-mask-image:linear-gradient(#0000 0,#000 70vh);mask-image:linear-gradient(#0000 0,#000 70vh)}.has-3d .photo>*{z-index:1;position:relative}.world-mobile .photo:before{display:none}.has-3d .photo .intro h2,.has-3d .photo .intro p{max-width:13em}.has-3d .photo .intro p{max-width:26em}.has-3d .beats{display:block}.beat{align-items:center;min-height:100vh;display:flex}.beat>.wrap{width:100%}.beat-c .n{font:500 40px/1 var(--serif);color:var(--clear)}.beat-c h3{font:500 clamp(32px, 3.4vw, 46px)/1.1 var(--serif);letter-spacing:-.015em;color:#fff;text-wrap:balance;margin-top:18px}.beat-c p{color:#c3cbda;margin-top:16px;font-size:18px}.has-3d .photo+.sec.dark{padding-top:120px}.has-3d #updates{border-top:0}.world-mobile .photo .intro{padding-block-start:52vh;padding-block-end:18vh}.world-mobile .beat{align-items:flex-end;padding-bottom:10vh}.world-mobile .beat-c,.world-mobile .photo .intro{position:relative}.world-mobile .beat-c:before{content:"";z-index:-1;background:linear-gradient(#0e2f3300 0%,#0e2f33db 34%);position:absolute;top:-40px;bottom:-24px;left:-18px;right:-18px}.world-mobile .beat-c h3{font-size:31px}.world-mobile .beat-c p{font-size:16.5px}@media (max-width:760px){.has-3d .photo+.sec.dark{padding-top:76px}}.method h3,.doors b,.desk-intro h3,.beat-c h3,footer .mark,.dialog h3,.chosen b,.photo h2{letter-spacing:-.028em}em,i,.note p,.q-line{font-style:normal}.kicker{letter-spacing:0;font-weight:500}p.aside-note{max-width:46em;display:block}.issues-list>div{align-items:baseline}.steps li b{font-weight:500}.head .kicker{margin-bottom:0}.head p{font-size:19px}body{font-size:18px}.wrap{max-width:1440px;padding-inline-start:clamp(20px,4.4vw,72px);padding-inline-end:clamp(20px,4.4vw,72px)}.top .wrap,footer .wrap{padding-inline-start:clamp(20px,2.6vw,44px);padding-inline-end:clamp(20px,2.6vw,44px)}.sec{padding-block-start:104px;padding-block-end:104px}@media (max-width:760px){.sec{padding-block-start:68px;padding-block-end:68px}}.head{grid-template-columns:minmax(0,7fr) minmax(0,5fr);align-items:end;gap:72px;max-width:none;margin-bottom:56px}@media (max-width:900px){.head{grid-template-columns:minmax(0,1fr);gap:16px;margin-bottom:40px}}.head h2{font-size:clamp(36px,4.4vw,66px)}.head p{max-width:30em;font-size:20px;line-height:1.5}h3{font-size:19px}.fine{font-size:14.5px}.btn{min-height:54px;padding:0 28px;font-size:16px}.btn.sm{min-height:44px;font-size:15px}.top .wrap{height:80px}.brand b{letter-spacing:-.03em;font-size:30px;font-weight:600}.brand span{font-size:14px}.nav{gap:34px;font-size:16px}.hero{padding-block-start:72px;padding-block-end:96px}@media (min-width:1001px){.hero .wrap{grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:64px}}.hero h1{max-width:12em;margin-top:0;font-size:clamp(42px,5vw,76px)}.hero .lede{max-width:32em;font-size:21px;line-height:1.5}.hero-sign{max-width:600px}.hero-sign input[type=email]{min-height:56px;font-size:17px}.doors b{font-size:26px}.doors span{font-size:16px}.has-3d .photo .intro{padding-block-start:26vh;padding-block-end:22vh}.photo h2{font-size:clamp(40px,5vw,76px)}.photo p{font-size:21px}.beat{min-height:88vh}.beat-c{max-width:30em}.beat-c h3{font-size:clamp(40px,4.4vw,68px)}.beat-c p{font-size:21px;line-height:1.5}.issues-list{column-gap:80px}.issues-list>div{grid-template-columns:200px minmax(0,1fr);padding:28px 0}.issues-list span{font-size:16px}.issues-list h3{letter-spacing:-.015em;font-size:22px;font-weight:500}p.aside-note{margin-top:32px;font-size:17px}@media (max-width:520px){.issues-list>div{grid-template-columns:minmax(0,1fr)}}.agent h2{font-size:clamp(40px,4.6vw,70px)}.agent .intro{font-size:20px}.steps li b{font-size:19px}.desk-intro{margin-top:88px}.desk-intro h3{font-size:clamp(30px,3.2vw,44px)}.doc h3{letter-spacing:-.015em;font-size:24px}.doc small,.doc td{font-size:16px}.plan{padding:44px 40px}.plan h3{font-size:24px}.plan p,.plan li{font-size:16px}.subhead h3{font-size:clamp(30px,3vw,42px)}.subhead p{font-size:18px}.paths h3{letter-spacing:-.025em;font-size:clamp(30px,3vw,44px)}.paths p{font-size:19px}.paths>div{padding-right:64px}.paths>div+div{padding-left:64px}.faq{grid-template-columns:minmax(0,4fr) minmax(0,8fr);align-items:start;column-gap:72px;max-width:none;display:grid}.faq h2{grid-row:1/span 20;font-size:clamp(36px,4.4vw,66px)}.faq summary{font-size:19px}.faq details p{max-width:46em;font-size:17px}@media (max-width:900px){.faq{grid-template-columns:minmax(0,1fr)}.faq h2{grid-row:auto}}.capture h2{font-size:clamp(34px,4vw,60px)}.capture p{font-size:19px}.capture input[type=email]{font-size:20px}footer{font-size:15px}footer .links a{font-size:17px}footer .mark{letter-spacing:-.035em;font-size:56px;font-weight:600}footer .mark small{letter-spacing:0;font-size:16px;font-weight:400}@media (min-width:1001px) and (max-height:860px){.hero{padding-block-start:44px;padding-block-end:72px}.hero h1{font-size:clamp(40px,4.3vw,62px)}.hero .lede{margin-top:20px;font-size:19px}.hero-sign{margin-top:26px}}@media (max-width:560px){.hero{padding-top:32px}.hero h1{font-size:36px}.hero .lede{font-size:17px}}footer{padding-block-start:88px;padding-block-end:32px}footer .wrap{display:block}.foot-top{border-bottom:1px solid #ffffff24;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:64px;padding-bottom:64px;display:grid}.foot-logo{font:600 52px/1 var(--sans);letter-spacing:-.035em;color:#fff;text-decoration:none}.foot-brand p{color:var(--on-dark);max-width:22em;margin-top:16px;font-size:18px}.foot-brand .btn{margin-top:28px}.foot-nav{grid-template-columns:repeat(3,minmax(0,1fr));gap:32px;display:grid}.foot-nav h4,.foot-nav .foot-h{font:600 15px/1.3 var(--sans);color:#fff;margin:0 0 18px}.foot-nav a{color:var(--on-dark);padding:5px 0;font-size:16px;text-decoration:none;display:block}.foot-nav a:hover,.foot-base a:hover{color:var(--clear)}.foot-nav p{color:var(--on-dark);max-width:16em;font-size:16px}.foot-nav p a{color:#fff;text-underline-offset:4px;padding:0;text-decoration:underline;display:inline}.foot-legal{color:#aeb7c8f2;border-bottom:1px solid #ffffff24;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 64px;padding-block-start:32px;padding-block-end:32px;font-size:13.5px;line-height:1.6;display:grid}.foot-base{color:var(--on-dark);justify-content:space-between;gap:16px;padding-top:24px;font-size:14px;display:flex}.foot-base a{color:var(--on-dark);text-decoration:none}@media (max-width:900px){.foot-top{grid-template-columns:minmax(0,1fr);gap:48px}.foot-legal{grid-template-columns:minmax(0,1fr)}}@media (max-width:520px){footer{padding-top:64px}.foot-nav{grid-template-columns:repeat(2,minmax(0,1fr))}.foot-nav>div:last-child{grid-column:1/-1}.foot-logo{font-size:44px}}.dark .btn.solid,footer .btn.solid,.plan.pick .btn{color:var(--ink);background:#fff;border-color:#fff}.dark .btn.solid:hover,footer .btn.solid:hover,.plan.pick .btn:hover{background:var(--clear);border-color:var(--clear);color:var(--ink)}.btn,.hero-sign input[type=email],.f input,.f select{border-radius:6px}.sec+.sec{border-top:0}.btn,.hero-sign input[type=email],.f input,.f select{border-radius:10px}.top{-webkit-backdrop-filter:saturate(1.6)blur(16px);background:#fffffff0;border-bottom-color:#0e2f330f}.doors{border-top:0;gap:12px;margin-top:28px}.doors a,.doors a+a{border:1px solid var(--rule);background:#ffffffb8;border-radius:14px;padding:20px 22px;transition:border-color .2s,transform .2s}.doors a:hover{border-color:var(--ink)}.doors a:hover b{text-decoration:none}.doors b{letter-spacing:-.02em;font-size:21px;font-weight:600}@media (max-width:480px){.doors a+a{border-left:1px solid var(--rule);padding-left:22px}}.issues-list{border-top:0;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.issues-list>div,.issues-list>div:nth-child(n){background:var(--mist);border:0;border-radius:16px;flex-direction:column;justify-content:space-between;gap:32px;min-height:170px;padding:26px 26px 28px;display:flex}.paper .issues-list>div{background:#fff}.issues-list span{font-size:15px;font-weight:500}.issues-list h3{font-size:22px;line-height:1.25}@media (max-width:1100px){.issues-list{grid-template-columns:repeat(2,minmax(0,1fr))}}@media (max-width:560px){.issues-list{grid-template-columns:minmax(0,1fr);gap:10px}.issues-list>div,.issues-list>div:nth-child(n){gap:8px;min-height:0;padding:20px 22px}}p.aside-note{color:var(--stone);margin-top:24px}.docs{gap:14px}.doc{background:var(--mist);border:0;border-radius:18px;padding:34px 32px}.doc .quoteblock{background:#fff;border-radius:10px;font-style:normal}.paths{border-top:0;gap:14px}.paths>div,.paths>div+div{background:var(--mist);border:0;border-radius:18px;padding:44px 44px 48px}@media (max-width:860px){.paths>div,.paths>div+div{padding:32px 28px}}.plans,.plans.two{background:0 0;border:0;gap:14px}.plan,.plan+.plan{border:1px solid var(--rule);background:#fff;border-radius:20px}.plan.pick{border-color:var(--deep);background:var(--deep)}.plan ul{border-top-color:var(--rule)}.plan li:before{background:var(--current);border-radius:50%;width:6px;height:6px;top:10px}.plan.pick li:before{background:var(--clear)}@media (max-width:1000px){.plan+.plan{border-top:1px solid var(--rule)}}.panel{border-color:var(--rule);border-radius:18px}.phone,.desk{border-radius:18px;overflow:hidden}.dialog{border-top:0;border-radius:18px}.seg button{border-color:var(--rule);border-radius:999px;padding:10px 18px;font-size:15.5px}.msg .chose{color:var(--current);align-items:center;gap:6px;margin-top:10px;font-size:13px;font-weight:500;display:flex}.msg.me .chose{color:var(--clear)}.wait .pending{color:var(--ink);align-items:center;gap:8px;margin-top:10px;font-size:13px;font-weight:500;display:inline-flex}.wait .pending:before{content:"";background:#e0a800;border-radius:50%;width:8px;height:8px}[id]{scroll-margin-top:80px}.btn{border-radius:10px;gap:8px;min-height:48px;padding:0 22px;font-size:15.5px;font-weight:500}.btn.sm{min-height:40px;padding:0 16px;font-size:14.5px}.plan .btn{justify-self:start;width:auto}.hero-sign input[type=email],.hero-sign .btn{min-height:48px}.nav .btn .short{display:none}@media (max-width:560px){.nav .btn .long{display:none}.nav .btn .short{display:inline}}@media (max-width:400px){.hero-sign .btn{width:100%}}.result .row{flex-wrap:wrap;gap:10px;display:flex}.plan{flex-direction:column;gap:14px;display:flex}.plan .tag:empty{display:none}.plan ul{flex:1}.plan .btn{align-self:flex-start;margin-top:10px}.field{border:1px solid var(--rule-2);background:#fff;border-radius:10px;max-width:300px;overflow:hidden}.f .field input,.field input{box-shadow:none;border:0;border-radius:0;min-height:46px;padding:12px 14px 12px 4px}.field span{padding-left:14px}.sub{border-left:0;border-radius:14px;padding:20px 22px}.check input{width:18px;height:18px;margin-top:3px}.capture form{border-bottom:0;gap:10px}.capture input[type=email]{border:1px solid var(--rule-2);background:#fff;border-radius:10px;flex:1;min-width:0;min-height:48px;padding:0 16px;font-size:16px}.capture input[type=email]:focus{border-color:var(--deep);outline:none;box-shadow:0 0 0 3px #0e2f331a}.capture .btn{border:1px solid var(--deep);min-height:48px;padding:0 22px;font-weight:500}.capture .btn:hover{background:var(--current);border-color:var(--current);color:#fff}@media (max-width:400px){.capture form{flex-direction:column}}.field input:focus{box-shadow:none;outline:none}.field input:focus-visible{box-shadow:none;outline:none}.field:focus-within{border-color:var(--deep);box-shadow:0 0 0 3px #0e2f331a}@media (max-width:560px){.plan,.plan+.plan{padding:28px 24px}.doc{padding:26px 22px}.paths>div,.paths>div+div{padding:28px 24px}}.sides{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;display:grid}.side{background:var(--mist);border-radius:22px;flex-direction:column;gap:22px;padding:44px 44px 40px;display:flex}.side-dark{background:var(--deep);color:#fff}.side-k{color:var(--current);font-size:16px;font-weight:500}.side-dark .side-k{color:var(--clear)}.side h3{letter-spacing:-.025em;max-width:18em;font-size:clamp(26px,2.4vw,34px);font-weight:500;line-height:1.18}.checks{flex:1;grid-template-columns:repeat(2,minmax(0,1fr));align-content:start;gap:12px 28px;margin:4px 0 0;padding:0;list-style:none;display:grid}.checks li{color:var(--ink);padding-left:28px;font-size:17px;line-height:1.45;position:relative}.side-dark .checks li{color:#e3e8f0}.checks li:before{content:"";background:var(--current) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4.5 8.2l2.3 2.3 4.7-4.9' fill='none' stroke='white' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 16px no-repeat;border-radius:50%;width:16px;height:16px;position:absolute;top:5px;left:0}.side-dark .checks li:before{background-color:var(--clear)}.side-act{flex-wrap:wrap;align-items:center;gap:12px 22px;margin-top:8px;display:flex}.text-link{color:var(--ink);text-underline-offset:5px;text-decoration:underline;-webkit-text-decoration-color:var(--rule-2);text-decoration-color:var(--rule-2);font-size:16px;font-weight:500}.text-link:hover{-webkit-text-decoration-color:var(--current);text-decoration-color:var(--current)}@media (max-width:900px){.sides{grid-template-columns:minmax(0,1fr)}}@media (max-width:560px){.side{padding:28px 24px}.checks{grid-template-columns:minmax(0,1fr)}}.side-tabs{background:var(--mist);border-radius:12px;gap:4px;margin-bottom:28px;padding:4px;display:inline-flex}.side-tabs button{min-height:40px;color:var(--stone);background:0 0;border:0;border-radius:9px;padding:0 20px;font-size:15.5px;font-weight:500;transition:background .15s,color .15s}.side-tabs button[aria-selected=true]{color:var(--ink);background:#fff;box-shadow:0 1px 2px #0e2f3314,0 0 0 1px #0e2f330f}.plans-note{color:var(--stone);margin-top:18px;font-size:15px}.dark .agent{align-items:center}.dark .desk{margin-top:72px}.side-dark .btn.solid{color:var(--ink);background:#fff;border-color:#fff}.side-dark .btn.solid:hover{background:var(--clear);border-color:var(--clear);color:var(--ink)}.check-grid{grid-template-columns:minmax(0,5fr) minmax(0,7fr);align-items:start;gap:72px;display:grid}.check-intro{position:sticky;top:120px}.check-intro h2{font-size:clamp(36px,4vw,58px)}.check-intro p{color:var(--stone);max-width:26em;margin-top:18px;font-size:19px}.check-intro .fine{margin-top:14px;font-size:14.5px}.wizard{border:1px solid var(--rule);background:#fff;border-radius:24px;flex-direction:column;min-height:360px;padding:36px 40px 32px;display:flex;box-shadow:0 1px 2px #0e2f330a,0 24px 48px -32px #0e2f332e}.wz-top{color:var(--stone);font-variant-numeric:tabular-nums;align-items:center;gap:18px;margin-bottom:32px;font-size:14.5px;display:flex}.wz-top span{white-space:nowrap}.wz-bar{background:var(--mist);border-radius:4px;flex:1;height:4px;overflow:hidden}.wz-bar i{background:var(--current);border-radius:4px;width:0;height:100%;transition:width .35s;display:block}#qform{flex:1}#qform .q,#qform .q+.q{border:0;gap:18px;margin:0;padding:0}#qform .ql{letter-spacing:-.02em;outline:none;font-size:clamp(22px,2vw,28px);font-weight:500;line-height:1.25}#qform .q small{margin-top:-8px;font-size:15px}#qform .seg{gap:10px}#qform .seg button{min-height:48px;color:var(--ink);border-radius:12px;padding:0 20px;font-size:16px}#qform .seg button[aria-pressed=true]{background:var(--deep);border-color:var(--deep);color:#fff}#qform .check{color:var(--ink);border:1px solid var(--rule);border-radius:12px;padding:14px 16px;font-size:16.5px}#qform .check+.check{margin-top:0}#qform .sub{margin-top:6px}.wz-nav{border-top:1px solid var(--rule);justify-content:space-between;gap:12px;margin-top:32px;padding-top:24px;display:flex}.wz-nav .btn[disabled]{visibility:hidden}.wz-result{gap:24px;display:grid}.rs-head{grid-template-columns:auto minmax(0,1fr);align-items:center;gap:24px;display:grid}.rs-head .dial{width:112px;height:112px}.rs-head .dial text{font-family:var(--sans);font-weight:600}.rs-k{color:var(--stone);font-size:14.5px}.rs-head h3{letter-spacing:-.02em;outline:none;margin-top:4px;font-size:28px;font-weight:500}.rs-head p:last-child{color:var(--stone);margin-top:6px;font-size:16px}.rs-range{background:var(--mist);border-radius:14px;justify-content:space-between;align-items:baseline;gap:16px;padding:18px 20px;display:flex}.rs-range span{color:var(--stone);font-size:15.5px}.rs-range b{letter-spacing:-.02em;color:var(--willow);white-space:nowrap;font-size:24px;font-weight:600}.rs-list{border-top:1px solid var(--rule);margin:0;padding:0;list-style:none}.rs-list li{border-bottom:1px solid var(--rule)}.rs-list summary{cursor:pointer;align-items:center;gap:14px;padding:15px 2px;list-style:none;display:flex}.rs-list summary::-webkit-details-marker{display:none}.rs-list summary:before{content:"";background:var(--ink-3);border-radius:50%;flex:none;width:8px;height:8px}.rs-list li.high summary:before{background:var(--willow)}.rs-list li.med summary:before{background:#2c6e6f}.rs-list .t{flex:1;font-size:16.5px;font-weight:500}.rs-list .a{color:var(--stone);white-space:nowrap;font-size:15.5px}.rs-list summary:after{content:"+";color:var(--current);text-align:center;width:14px;font-size:20px;line-height:1}.rs-list details[open] summary:after{content:"−"}.rs-list details p{color:var(--stone);max-width:40em;padding:0 2px 16px 22px;font-size:15.5px}.rs-empty{color:var(--stone)}.text-link{cursor:pointer;background:0 0;border:0;padding:0;font-family:inherit}.rs-act{flex-wrap:wrap;align-items:center;gap:10px 14px;display:flex}.rs-act .text-link{cursor:pointer;background:0 0;border:0;padding:0 6px}@media (max-width:1000px){.check-grid{grid-template-columns:minmax(0,1fr);gap:36px}.check-intro{position:static}}@media (max-width:560px){.wizard{border-radius:18px;min-height:0;padding:24px 20px}.wz-top{margin-bottom:24px}.rs-head{grid-template-columns:minmax(0,1fr)}.rs-range{flex-direction:column}.rs-list .a{font-size:14px}}.phone{background:#fff;border:0;border-radius:24px;max-width:520px;overflow:hidden;box-shadow:0 30px 80px -30px #0000008c,0 0 0 1px #ffffff0f}.screen-h{border-bottom:1px solid var(--rule);background:#fff;justify-content:flex-start;align-items:center;gap:12px;padding:16px 20px;display:flex}.screen-h .av{background:var(--deep);color:#fff;border-radius:50%;place-items:center;width:34px;height:34px;font-size:15px;font-weight:600;display:grid}.screen-h b{font-size:15.5px;font-weight:600;display:block}.screen-h small{color:var(--ink-3);font-size:13px;display:block}.feed{scrollbar-width:none;background:#fff;flex-direction:column;gap:6px;height:500px;max-height:none;padding:18px 18px 22px;display:flex;overflow-y:auto}.feed::-webkit-scrollbar{display:none}.stamp{color:var(--ink-3);align-self:center;margin:12px 0 4px;font-size:12.5px;font-weight:500}.bub{max-width:84%;color:var(--ink);background:#eef3f2;border-radius:18px 18px 18px 6px;padding:10px 14px;font-size:14.5px;line-height:1.5;animation:.35s both bub-in}.bub.me{background:var(--deep);color:#fff;border-radius:18px 18px 6px;align-self:flex-end}.bub b{font-weight:600}.bub .src{border:1px solid var(--rule);color:var(--stone);background:#fff;border-radius:11px;margin-top:10px;padding:9px 11px;font-size:13.5px;display:block}.bub .src small{color:var(--current);align-items:center;gap:6px;margin-bottom:2px;font-size:12.5px;font-weight:500;display:flex}.typing{background:#eef3f2;border-radius:18px 18px 18px 6px;align-self:flex-start;gap:4px;padding:12px 14px;display:inline-flex}.typing i{background:var(--ink-3);border-radius:50%;width:6px;height:6px;animation:1s ease-in-out infinite dot}.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}@keyframes dot{0%,80%,to{opacity:.3;transform:translateY(0)}40%{opacity:1;transform:translateY(-2px)}}@keyframes bub-in{0%{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}.replay-bar{border-top:1px solid var(--rule);color:var(--stone);background:#f7faf9;padding:12px 16px 12px 20px;font-size:13.5px}.replay-bar .btn{border-color:var(--rule-2)}.desk{background:#fff;border:0;border-radius:22px;overflow:hidden;box-shadow:0 40px 90px -40px #0009,0 0 0 1px #ffffff0f}.desk-bar{border-bottom:1px solid var(--rule);background:#f1f5f4;align-items:center;gap:16px;padding:12px 16px;display:flex}.desk-bar .dots i{background:#d3d7de}.desk-bar .url{text-align:center;color:var(--stone);background:#fff;border:0;border-radius:8px;flex:0 360px;margin:0 auto;padding:6px 12px;font-size:13px}.desk-body{grid-template-columns:minmax(0,5fr) minmax(0,7fr);display:grid}.desk-chat{border-right:1px solid var(--rule);background:#fff;flex-direction:column;gap:6px;padding:22px;display:flex}.desk-chat .bub{animation:none}.desk-file{background:#f7faf9;align-content:start;gap:22px;padding:24px 26px 28px;display:grid}.df-head{justify-content:space-between;align-items:baseline;display:flex}.df-head b{letter-spacing:-.015em;font-size:19px;font-weight:600}.df-head span{color:var(--stone);border:1px solid var(--rule);background:#fff;border-radius:999px;padding:3px 10px;font-size:13px}.df-steps{grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin:0;padding:0;list-style:none;display:grid}.df-steps li{border-top:3px solid var(--rule);color:var(--ink-3);padding-top:10px;font-size:13px}.df-steps li.done{border-color:var(--current);color:var(--ink)}.df-steps li.now{border-color:var(--deep);color:var(--ink);font-weight:600}.df-sec .df-h{color:var(--ink);justify-content:space-between;margin:0 0 10px;font-size:13.5px;font-weight:600;display:flex}.df-sec .df-h span{color:var(--stone);font-weight:400}.frow{border:1px solid var(--rule);background:#fff;border-radius:12px;padding:12px 14px}.frow+.frow{margin-top:8px}.frow.open{border-color:#2c6e6f59;box-shadow:0 0 0 3px #2c6e6f14}.ft{justify-content:space-between;gap:12px;font-size:14.5px;display:flex}.ft b{font-weight:600}.ft span{color:var(--willow);white-space:nowrap;font-weight:500}.fbar{background:var(--mist);border-radius:6px;height:6px;margin-top:10px;position:relative}.fbar i{background:var(--current);border-radius:6px;position:absolute;top:0;bottom:0}.fsrc{color:var(--stone);background:#f7faf9;border-radius:10px;gap:2px;margin-top:12px;padding:10px 12px;font-size:13px;display:grid}.fsrc small{color:var(--current);align-items:center;gap:6px;margin-bottom:4px;font-size:12.5px;font-weight:500;display:flex}.fsrc span{border-radius:5px;justify-content:space-between;gap:10px;margin-inline-start:-6px;margin-inline-end:-6px;padding:2px 6px;display:flex}.fsrc span.hl{color:var(--ink);background:#2c6e6f29}.fsrc em{font-variant-numeric:tabular-nums;font-style:normal}.faxis{color:var(--ink-3);justify-content:space-between;margin-top:8px;padding-inline-start:14px;padding-inline-end:14px;font-size:12px;display:flex}.df-wait{background:#eef5f3;border:1px solid #c3d0cd;border-radius:12px;align-items:flex-start;gap:12px;padding:14px 16px;display:flex}.df-wait b{font-size:14px;font-weight:600}.df-wait p{color:var(--stone);margin-top:2px;font-size:14px}.pulse{background:#2c6e6f;border-radius:50%;flex:none;width:9px;height:9px;margin-top:6px;box-shadow:0 0 0 4px #2c6e6f2e}.dlist{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 16px;margin:0;padding:0;font-size:13.5px;list-style:none;display:grid}.dlist li{color:var(--ink-3);align-items:center;gap:8px;display:flex}.dlist li:before{content:"";border:1.5px dashed var(--rule-2);border-radius:50%;flex:none;width:16px;height:16px}.dlist li.in{color:var(--ink)}.dlist li.in:before{display:none}.dlist li.in svg{background:var(--current);color:#fff;border-radius:50%;flex:none;width:16px;height:16px;padding:2px}.desk-cap{margin-top:14px;font-size:13px}@media (max-width:900px){.desk-body{grid-template-columns:minmax(0,1fr)}.desk-chat{border-right:0;border-bottom:1px solid var(--rule)}}@media (max-width:560px){.feed{height:440px;padding:14px}.bub{max-width:90%}.desk-chat,.desk-file{padding:18px}.dlist{grid-template-columns:minmax(0,1fr)}.desk-bar .url{flex-basis:auto}}@media (prefers-reduced-motion:reduce){.bub,.typing i{animation:none}}@media (max-width:560px){.df-steps{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:10px}.ft{flex-direction:column;gap:2px}}html.modal-open,html.modal-open body{overflow:hidden}.world-mobile .photo .intro:before{content:"";z-index:-1;background:linear-gradient(#0e2f3300 0%,#0e2f33e6 32%);position:absolute;top:-48px;bottom:-28px;left:0;right:0}.has-3d .photo{background-color:#0000}.has-3d .photo .intro,.has-3d .beat-c{color:#fff}.text-link{align-items:center;min-height:44px;display:inline-flex}@media (min-width:1900px){body{font-size:19px}.wrap{max-width:1680px}.hero h1{font-size:84px}.hero .lede{font-size:23px}.head h2{font-size:72px}.head p{font-size:22px}}@media (min-width:1001px){.hero{min-height:calc(100vh - 80px);align-items:center;min-height:calc(100svh - 80px);display:flex}.hero>.wrap{width:100%}}.river{z-index:1;background:var(--deep);color:#fff;align-items:flex-end;min-height:clamp(460px,72vh,760px);display:flex;position:relative;overflow:hidden}.river-img{position:absolute;top:-12%;bottom:-12%;left:0;right:0}.river-img img{object-fit:cover;object-position:center 45%;filter:saturate(.82)contrast(1.02);will-change:transform;width:100%;height:100%}.river:before{content:"";z-index:1;background:linear-gradient(#0e2f3300 30%,#0e2f3380 62%,#0e2f33f0 100%),linear-gradient(90deg,#0e2f338c 0%,#0e2f3300 62%);position:absolute;top:0;bottom:0;left:0;right:0}.river .wrap{z-index:2;width:100%;padding-block-start:0;padding-block-end:72px;position:relative}.river h2{color:#fff;max-width:12em;font-size:clamp(38px,5vw,76px)}.river p{color:#d6e4e2;max-width:34em;margin-top:20px;font-size:clamp(17px,1.5vw,21px);line-height:1.55}@media (max-width:560px){.river{min-height:78svh}.river .wrap{padding-bottom:44px}.river:before{background:linear-gradient(#0e2f3300 20%,#0e2f3399 50%,#0e2f33f5 100%)}}.has-3d .river+.photo .intro{padding-top:30vh}.has-3d .river+.photo{background:linear-gradient(180deg, var(--deep) 0, var(--deep) 45vh, #0e2f3300 110vh) no-repeat}</style>
+  <script type="module" crossorigin src="/assets/index-Bs5sqxOt.js"></script>
+</head>
+<body data-page="home">
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Lockwood, back to top"><b>Lockwood</b></a>
+    <nav class="nav" aria-label="Main">
+      <a href="#how">How it works</a>
+      <a href="#who">Who it's for</a>
+      <a href="#faq">Questions</a>
+      <a class="btn solid sm" href="#check" data-track="nav_check"><span class="long">Start the free check</span><span class="short">Free check</span></a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero" data-scene data-anchor>
+    <div class="wrap">
+      <div>
+        <h1>Find the tax issues in a business sale before they cost you.</h1>
+        <p class="lede">Lockwood is an AI agent for tax diligence. It reads a company's returns, books and payroll, finds what a buyer's review would find, and prices each issue. Every finding links to the page it came from.</p>
+        <form class="hero-sign" id="hform" novalidate>
+          <label class="sr" for="h-email">Email</label>
+          <input id="h-email" type="email" autocomplete="email" placeholder="you@company.com">
+          <input type="text" id="h-bot" name="bot-field" tabindex="-1" autocomplete="off" class="sr" aria-hidden="true">
+          <button class="btn solid" type="submit" id="h-btn">Send me the checklist</button>
+        </form>
+        <p class="hero-sign-msg fine" id="h-msg" role="status">Free one-page checklist: what a buyer's tax review looks at. Unsubscribe anytime.</p>
+      </div>
+
+      <figure class="exhibit" aria-label="Example: a revenue report by customer state with a finding tied to it">
+        <div class="page">
+          <div class="water" aria-hidden="true"><i></i></div>
+          <div class="form-h"><b>Revenue by customer state</b><span>Hollowell Software, LLC<br>Stripe export, FY 2025</span></div>
+          <div class="ln"><i>CA</i><span>California</span><em>$388,000</em></div>
+          <div class="ln hit"><i>TX</i><span>Texas, no tax collected</span><em>$540,000</em></div>
+          <div class="ln hit"><i>WA</i><span>Washington, no tax collected</span><em>$164,000</em></div>
+          <div class="ln hit"><i>TN</i><span>Tennessee, no tax collected</span><em>$131,000</em></div>
+          <div class="ln hit"><i>PA</i><span>Pennsylvania, no tax collected</span><em>$121,000</em></div>
+          <div class="ln"><i></i><span>All other states</span><em>$1,056,000</em></div>
+          <div class="ln tot"><i></i><span>Total revenue</span><em>$2,400,000</em></div>
+          <span class="stamp">Page 3 of 7</span>
+        </div>
+        <div class="note">
+          <small>Finding F-01, from page 3</small>
+          <p>$956k billed into four states where its sales are taxable. No sales tax collected.</p>
+          <dl><dt>Cost to fix now, est.</dt><dd class="money">$150,400</dd><dt>Held back if a buyer finds it</dt><dd>$190k to $285k</dd></dl>
+        </div>
+        <figcaption class="cap">Hypothetical company. Figures for illustration.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="river" aria-label="Both sides of the deal">
+    <div class="river-img" aria-hidden="true"><img src="/river-1600.jpg" srcset="/river-1000.jpg 1000w, /river-1600.jpg 1600w, /river-2400.jpg 2400w" sizes="100vw" width="2400" height="1600" alt="" loading="lazy" decoding="async"></div>
+    <div class="wrap">
+      <h2>Both sides of the deal read the same records.</h2>
+      <p>The seller wants to know what a buyer will find. The buyer wants to know what the seller hasn't said. Lockwood reads the records first.</p>
+    </div>
+  </section>
+
+  <section class="photo" id="how" data-scene aria-label="How it works">
+    <div class="wrap intro" data-anchor>
+      <h2>How it works.</h2>
+      <p>For sellers preparing to sell, or buyers checking a company before they close.</p>
+    </div>
+    <div class="beats">
+      <div class="beat" data-anchor><div class="wrap"><div class="beat-c"><span class="n">01</span><h3>Reads every page.</h3><p>Returns, books, sales reports, payroll and contractor payments. Scanned pages too.</p></div></div></div>
+      <div class="beat" data-anchor><div class="wrap"><div class="beat-c"><span class="n">02</span><h3>Finds what a buyer's review would find.</h3><p>Each one tied to the exact line it came from.</p></div></div></div>
+      <div class="beat" data-anchor><div class="wrap"><div class="beat-c"><span class="n">03</span><h3>Prices each issue.</h3><p>What it costs to fix now, and what a buyer might hold back.</p></div></div></div>
+      <div class="beat" data-anchor><div class="wrap"><div class="beat-c"><span class="n">04</span><h3>Stays on through closing.</h3><p>Diligence requests answered from your records, and tax points for your attorney.</p></div></div></div>
+    </div>
+  </section>
+
+
+  <section class="sec" id="who">
+    <div class="wrap">
+      <div class="head"><h2>For both sides of a small business sale</h2><p>The same review, from the side that engages it.</p></div>
+      <div class="sides">
+        <article class="side" id="sellers">
+          <p class="side-k">Selling a business</p>
+          <h3>See what a buyer's review will find, and fix it before it lowers your price.</h3>
+          <ul class="checks">
+            <li>Sales tax in other states</li><li>Contractors who look like employees</li>
+            <li>Team members paid abroad</li><li>Customer prepayments</li>
+            <li>Out-of-state employees</li><li>Entity and sale structure</li>
+          </ul>
+          <div class="side-act"><a class="btn solid" href="#check" data-track="side_sell">Take the free check</a><button class="text-link" type="button" data-plan="review" data-from="sellers">Request a review</button></div>
+        </article>
+        <article class="side side-dark" id="buyers">
+          <p class="side-k">Buying a business</p>
+          <h3>Know the seller's tax exposure before you close, with the escrow each issue supports.</h3>
+          <ul class="checks">
+            <li>Unpaid sales tax that follows the business</li><li>Who really does the work</li>
+            <li>Prepayments you'll have to honor</li><li>Asset, stock or merger</li>
+          </ul>
+          <div class="side-act"><button class="btn solid" type="button" data-plan="findings" data-from="buyers">Send us the data room</button></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec paper" id="check">
+    <div class="wrap">
+      <div class="check-grid">
+        <div class="check-intro">
+          <h2>How ready is your company for a buyer's tax review?</h2>
+          <p>Eight quick questions for sellers. You get a readiness score and a rough range of what a buyer could price in.</p>
+          <p class="fine">Nothing is sent unless you ask. Answers stay in your browser.</p>
+        </div>
+        <div class="wizard" id="wizard">
+          <div class="wz-top"><span id="wz-step" aria-live="polite">Question 1 of 8</span><div class="wz-bar" aria-hidden="true"><i id="wz-fill"></i></div></div>
+        <form id="qform" novalidate onsubmit="return false">
+          <div class="q"><span class="ql" tabindex="-1">How is the company set up?</span><div class="seg" data-q="entity"><button type="button" data-v="llc">LLC</button><button type="button" data-v="s">S corporation</button><button type="button" data-v="c">C corporation</button><button type="button" data-v="u">Not sure</button></div></div>
+          <div class="q"><span class="ql" tabindex="-1">Annual revenue</span><div class="seg" data-q="rev"><button type="button" data-v="a">Under $1M</button><button type="button" data-v="b">$1M to $5M</button><button type="button" data-v="c">$5M to $15M</button><button type="button" data-v="d">Over $15M</button></div></div>
+          <div class="q"><span class="ql" tabindex="-1">Where are your customers?</span><div class="seg" data-q="where"><button type="button" data-v="home">Mostly in my state</button><button type="button" data-v="us">Across the US</button><button type="button" data-v="intl">US and abroad</button></div></div>
+          <div class="q"><span class="ql" tabindex="-1">Do you collect sales tax anywhere?</span><div class="seg" data-q="collect"><button type="button" data-v="all">Yes, where required</button><button type="button" data-v="some">In some states</button><button type="button" data-v="no">No</button><button type="button" data-v="u">Not sure</button></div></div>
+          <div class="q"><span class="ql" tabindex="-1">How is your team paid?</span><small>Pick the one that fits best.</small><div class="seg" data-q="devs"><button type="button" data-v="w2">W-2 employees</button><button type="button" data-v="us">US contractors</button><button type="button" data-v="abroad">Contractors abroad</button><button type="button" data-v="mix">A mix</button><button type="button" data-v="me">Just the owners</button></div>
+            <div class="sub" data-show="devs=us,mix" hidden>
+              <label class="f" for="q-devAmt">About how much do you pay US contractors per year?<div class="field"><span>$</span><input id="q-devAmt" inputmode="numeric" placeholder="120,000" data-num="devAmt"></div></label>
+              <label class="check"><input type="checkbox" data-flag="fulltime"> At least one works full time, only for us, on our schedule</label>
+            </div>
+            <div class="sub" data-show="devs=abroad,mix" hidden>
+              <span style="font-weight:500;font-size:15px">Is there a W-8BEN on file for each contractor abroad?</span>
+              <div class="seg" data-q="w8"><button type="button" data-v="y">Yes</button><button type="button" data-v="n">No</button><button type="button" data-v="u">Not sure</button></div>
+            </div>
+          </div>
+          <div class="q"><span class="ql" tabindex="-1">Do customers pay in advance, like annual plans, deposits or retainers?</span><div class="seg" data-q="prepay"><button type="button" data-v="y">Yes</button><button type="button" data-v="n">No</button></div></div>
+          <div class="q"><span class="ql" tabindex="-1">When do you expect to sell?</span><div class="seg" data-q="timing"><button type="button" data-v="6m">Within 6 months</button><button type="button" data-v="12m">6 to 12 months</button><button type="button" data-v="2y">1 to 2 years</button><button type="button" data-v="x">Just exploring</button></div></div>
+          <div class="q"><span class="ql" tabindex="-1">Any of these?</span>
+            <label class="check"><input type="checkbox" data-flag="remote"> Employees who live in a different state than the company</label>
+            <label class="check"><input type="checkbox" data-flag="no1099"> US contractors paid $600 or more without a 1099</label>
+          </div>
+        </form>
+          <div class="wz-nav"><button class="btn" type="button" id="wz-back">Back</button><button class="btn solid" type="button" id="wz-next">Next</button></div>
+          <div class="wz-result" id="result" aria-live="polite" hidden></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec dark" id="agent">
+    <div class="wrap agent">
+      <div>
+                <h2>What working with Lockwood looks like</h2>
+        <p class="intro">Send records and questions by email or a private chat page. Answers come from your own records, with the page they came from.</p>
+      </div>
+      <div class="phone" aria-label="Replay: Lockwood working a sample sale">
+        <div class="screen-h"><span class="av" aria-hidden="true">L</span><div><b>Lockwood</b><small>Sample conversation</small></div></div>
+        <div class="feed" id="feed"></div>
+        <div class="replay-bar"><span id="replay-state">A sample sale, six weeks in one minute</span><button class="btn sm" id="replay" type="button">Replay</button></div>
+      </div>
+    </div>
+    <div class="wrap">
+      <figure class="desk" aria-label="Sample of the private chat page for a fictional company">
+        <div class="desk-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="url">Private chat page</span></div>
+        <div class="desk-body">
+          <div class="desk-chat">
+            <div class="bub">F-01 is ready. Tap it to see page 3 of the Stripe export, with the Texas line marked.</div>
+            <div class="bub me">Add my CPA, Dana Ruiz.</div>
+            <div class="bub">Done. Dana can now see your findings and send files and questions.</div>
+            <div class="stamp">Friday</div>
+            <div class="bub">Weekly note: 14 documents read, 6 findings, 2 items waiting on you.</div>
+          </div>
+          <div class="desk-file">
+            <div class="df-head"><b>Your sale</b><span>Sell side</span></div>
+            <ol class="df-steps"><li class="done">Documents</li><li class="done">Checks</li><li class="done">Findings</li><li class="now">Cleanup</li></ol>
+            <div class="df-sec">
+              <p class="df-h">Findings</p>
+              <div class="frow open">
+                <div class="ft"><b>Sales tax, four states</b><span>$190k to $285k</span></div>
+                <div class="fbar" aria-hidden="true"><i style="left:63.3%;width:31.7%"></i></div>
+                <div class="fsrc"><small><svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M4 1.5h5.5L13 5v9.5H4z M9.5 1.5V5H13" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>Stripe export, FY 2025, page 3</small><span>CA California<em>$388,000</em></span><span class="hl">TX Texas, no tax collected<em>$540,000</em></span><span>WA Washington, no tax collected<em>$164,000</em></span></div>
+              </div>
+              <div class="frow">
+                <div class="ft"><b>Full-time worker on a 1099</b><span>$11k to $46k</span></div>
+                <div class="fbar" aria-hidden="true"><i style="left:3.7%;width:11.6%"></i></div>
+              </div>
+              <div class="faxis" aria-hidden="true"><span>$0</span><span>$150k</span><span>$300k</span></div>
+            </div>
+            <div class="df-wait"><span class="pulse" aria-hidden="true"></span><div><b>Waiting on you</b><p>Send the 15 ready answers to the buyer's attorney?</p></div></div>
+            <div class="df-sec">
+              <p class="df-h">Documents <span>4 of 6 in</span></p>
+              <ul class="dlist">
+                <li class="in"><svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M3.5 8.3l2.8 2.8 6.2-6.4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Stripe export, FY 2025</li><li class="in"><svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M3.5 8.3l2.8 2.8 6.2-6.4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Tax returns, 2023 and 2024</li><li class="in"><svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M3.5 8.3l2.8 2.8 6.2-6.4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Books, 2023 to 2025</li><li class="in"><svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M3.5 8.3l2.8 2.8 6.2-6.4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Payroll reports</li><li>W-8BEN forms (3)</li><li>Texas exemption certificates</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </figure>
+      <p class="desk-cap">Sample chat page. Hypothetical company. Figures for illustration.</p>
+    </div>
+  </section>
+
+  <section class="sec paper">
+    <div class="wrap">
+      <div class="faq" id="faq">
+        <h2>Questions</h2>
+        <details><summary>Will anything be sent without my approval?</summary><p>No. Messages to you and the advisors you add go directly. Anything addressed outside your team shows you the exact message first and goes only when you say yes.</p></details>
+        <details><summary>Is this legal or tax advice?</summary><p>No. Lockwood is software. It gives estimates and prepares drafts for you and your own advisors. Your CPA or attorney reviews anything before it is signed or filed.</p></details>
+        <details><summary>I already use a sales tax tool. Isn't that enough?</summary><p>Sales tax tools help you collect going forward. A buyer looks back, and looks at more than sales tax: contractors, entity, deferred revenue, state income tax and 1099s. Lockwood covers all of it and prices what's already happened.</p></details>
+        <details><summary>How do I get started?</summary><p>Request a review on this page. We reply by email to confirm scope, then send a secure link for your records. Lockwood reads nothing until you agree to the terms.</p></details>
+        <details><summary>Who checks the work?</summary><p>Every quote is checked against the page it came from and every figure comes from the calculation, not from a guess, before you see it. Findings from scanned pages get a person's check first. You and your advisors decide what to do, and your CPA or attorney reviews anything filed or signed.</p></details>
+        <details><summary>What do you need from me?</summary><p>Sales or billing reports by customer location, two or three years of tax returns, your books, payroll reports, and contractor payments. PDF, Excel, CSV, Word, images and zip files are fine, and scanned pages are read too. Large files go through a secure upload link: up to 25 files, 40 MB each, 200 MB per upload. You can forward the link to your CPA.</p></details>
+        <details><summary>I'm selling in a year or two. Is it too early?</summary><p>Usually not. Most fixes, like registering and filing back returns through state programs, take months. Starting early gives you time and keeps the issues out of the negotiation.</p></details>
+        <details><summary>What doesn't Lockwood do?</summary><p>It doesn't prepare or file tax returns, file anything with an agency, represent you before an agency, negotiate, give legal or tax opinions, decide QSBS eligibility, audit, or do quality of earnings work. It also can't promise it found every issue. It covers the areas on this page and shows its sources so your advisors can check.</p></details>
+        <details><summary>What happens to my documents?</summary><p>They're encrypted for each engagement and used only for your work. Source files are deleted 30 days after delivery. We keep the report and work papers.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="updates" data-scene data-anchor>
+    <div class="wrap capture">
+      <div><h2>Not selling yet? Get the seller's tax checklist.</h2><p>What a buyer's tax review looks at, and what to gather first.</p></div>
+      <div>
+        <form id="uform" novalidate>
+          <label class="sr" for="u-email">Email</label>
+          <input id="u-email" type="email" autocomplete="email" placeholder="you@company.com">
+          <input type="text" id="u-bot" name="bot-field" tabindex="-1" autocomplete="off" class="sr" aria-hidden="true">
+          <button class="btn solid" type="submit" id="u-btn">Send me the checklist</button>
+        </form>
+        <p id="u-msg" class="fine" role="status" style="margin-top:12px"></p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <a class="foot-logo" href="#top">Lockwood</a>
+        <p>An AI agent for tax diligence on business sales.</p>
+        <a class="btn solid" href="#check" data-track="foot_check">Start the free check</a>
+      </div>
+      <nav class="foot-nav" aria-label="Footer">
+        <div><h2 class="foot-h">Product</h2><a href="#sellers">For sellers</a><a href="#buyers">For buyers</a><a href="#how">How it works</a></div>
+        <div><h2 class="foot-h">Get started</h2><a href="#check">Free check</a><a href="#updates">Seller's checklist</a><a href="#faq">Questions</a></div>
+        <div id="foot-contact-col" hidden><h2 class="foot-h">Contact</h2><p id="foot-contact"></p></div>
+      </nav>
+    </div>
+    <div class="foot-legal">
+      <p>Lockwood is software, not a law or CPA firm, and does not give legal or tax advice. Your advisors decide and sign anything filed or signed. Findings and free check results are estimates, not a guarantee that every issue was found. Sample figures are from a fictional company.</p>
+      <p>Privacy: your email is used only to reply and to send updates you asked for. We don't sell it. Quiz answers stay in your browser unless you send a form.</p>
+    </div>
+    <div class="foot-base"><span>&copy; 2026 Lockwood</span><a href="#top">Back to top</a></div>
+  </div>
+</footer>
+
+<div id="modal-root"></div>
+<script>
+(function () {
+"use strict";
+
+/* ----------------------------------------------------------------- settings you can change */
+var CONFIG = {
+  // Sign-ups post to the Netlify Server route in netlify/server/submit.ts, which emails them to LEAD_TO_EMAIL.
+  apiEndpoint: "/api/submit",
+  contactEmail: "",   // Set once the new domain email exists, e.g. "hello@yourdomain.com"
+  plans: {
+    check: { name: "Readiness check", price: 0, unit: "", blurb: "The check on this page, then a reply from us with next steps.",
+      items: ["Readiness score and rough exposure", "A reply from us with next steps", "List of records to gather"], cta: "Start free" },
+    review: { name: "Sale Readiness Review", price: 2950, unit: "fixed fee", tag: "Recommended", blurb: "Your records read in full. The report in 7 days.",
+      items: ["Findings as each document is read, priced where the rules support it", "Sales tax by state, with what's worth checking", "Sale readiness report and cleanup plan", "Every finding tied to its document, page and quote"], cta: "Reserve a review" },
+    full: { name: "Sale Support", price: 8500, unit: "through closing", blurb: "Lockwood stays on the deal by email and your chat page until it closes.",
+      items: ["Everything in the Review", "Offers compared after tax, with sliders for price, earnout, seller note, escrow and rollover", "The buyer's diligence requests answered from your records, with open issues held for your decision", "Tax points on the purchase agreement, for your attorney", "Cleanup drafts reviewed by a person at Lockwood, then sent to your CPA", "A short weekly note on where things stand"], cta: "Reserve support" },
+    findings: { name: "Tax findings", price: 0, unit: "founding offer", blurb: "Send the data room. Get the seller's tax exposure, with sources, as each document is read.",
+      items: ["Every finding tied to a page in the data room", "Exposure range for each issue", "List of documents the seller still owes you"], cta: "Send my data room" },
+    deal: { name: "Lockwood through closing", price: 1950, unit: "founding price, per deal", tag: "First three buyers", blurb: "Lockwood works the tax side of your diligence from LOI to close.",
+      items: ["Findings report and a request list for the seller's side", "Escrow and indemnity amounts sized to each issue", "Tax points on the seller's purchase agreement draft, for your attorney", "Follows up on missing documents with your yes", "Nothing goes to the seller's side without your yes"], cta: "Reserve founding pricing" }
+  }
+};
+
+var $ = function (s, el) { return (el || document).querySelector(s); };
+var $$ = function (s, el) { return Array.prototype.slice.call((el || document).querySelectorAll(s)); };
+function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+function usd(n) { n = Math.round(n); if (n >= 1e6) return "$" + (n / 1e6).toFixed(n >= 1e7 ? 1 : 2).replace(/\.?0+$/, "") + "M"; if (n >= 1e4) return "$" + Math.round(n / 1e3) + "k"; if (n >= 1000) return "$" + (Math.round(n / 100) / 10) + "k"; return "$" + n.toLocaleString("en-US"); }
+function full(n) { return "$" + Math.round(n).toLocaleString("en-US"); }
+function num(v) { var n = parseFloat(String(v || "").replace(/[$,\s]/g, "")); return isNaN(n) ? 0 : n; }
+var LS = { get: function (k, d) { try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } }, set: function (k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} } };
+var PAGE = document.body.dataset.page || "saas";
+
+/* where the visitor came from: ?ref=indiehackers or utm_source, saved with any sign-up */
+var SRC = (function () { var o = LS.get("td-src", null); if (o) return o; var q = {}; try { new URLSearchParams(location.search).forEach(function (v, k) { q[k] = v; }); } catch (e) {}
+  o = { ref: q.ref || q.utm_source || "", campaign: q.utm_campaign || "", landed: new Date().toISOString() }; LS.set("td-src", o); return o; })();
+
+/* inside a Claude artifact preview only: optional db */
+var Cap = { db: null, uid: null };
+var capReady = (function () {
+  var c = window.claude; if (!c || !c.use) return Promise.resolve();
+  var t = function (p) { return Promise.race([p, new Promise(function (r) { setTimeout(function () { r(null); }, 8000); })]).catch(function () { return null; }); };
+  return Promise.all([t(c.use("db")), t(c.use("user"))]).then(function (r) {
+    Cap.db = r[0]; var u = r[1]; if (!u) return;
+    return Promise.resolve(u.id()).catch(function () { return null; }).then(function (id) { Cap.uid = id; });
+  });
+})();
+
+function track(step, extra) { if (window.plausible) { try { window.plausible(step, { props: extra || {} }); } catch (e) {} } }
+track("visit_" + PAGE);
+document.addEventListener("click", function (e) { var t = e.target.closest("[data-track]"); if (t) track(t.dataset.track); });
+
+/* ----------------------------------------------------------------- the readiness check
+   Deliberately conservative. Sales tax uses a rough share of revenue going to states where it is taxable,
+   typical combined rates, and 1.5 to 3 years. It never claims a state-by-state answer. */
+var A = LS.get("td-saas-answers", {});
+var REV = { a: 600000, b: 2500000, c: 9000000, d: 20000000 };
+var REV_LABEL = { a: "Under $1M", b: "$1M to $5M", c: "$5M to $15M", d: "Over $15M" };
+function score() {
+  var issues = [], low = 0, high = 0, pts = 100, rev = REV[A.rev] || 0;
+
+  /* sales tax */
+  var reach = A.where === "us" ? 1 : A.where === "intl" ? 0.8 : 0;
+  var gap = A.collect === "no" ? 1 : A.collect === "some" ? 0.5 : A.collect === "u" ? 0.75 : 0;
+  if (A.where === "home" && A.collect && A.collect !== "all") {
+    issues.push({ sev: "low", t: "Sales tax at home: worth checking", d: "Whether your own state taxes what you sell, and whether you should be collecting there.", amt: "Check", pts: 4 });
+  } else if (reach && gap) {
+    var small = A.rev === "a";
+    if (rev) {
+      var lo = rev * reach * 0.20 * 0.055 * 1.5 * gap * (small ? 0.5 : 1), hi = rev * reach * 0.40 * 0.08 * 3 * gap * (small ? 0.6 : 1);
+      low += lo; high += hi;
+    }
+    issues.push({ sev: small ? "med" : "high", t: A.collect === "u" ? "Sales tax in other states: worth checking" : "Sales tax in other states",
+      d: rev ? "Depends on which states your customers are in and when you passed each state's threshold. Rough range assumes a share of revenue in taxable states and 1.5 to 3 years." : "Pick a revenue range to see a rough range.",
+      amt: rev ? usd(lo) + " to " + usd(hi) : "", pts: small ? 10 : 22 });
+  }
+
+  /* developers */
+  if ((A.devs === "us" || A.devs === "mix") && A.fulltime) {
+    var w = num(A.devAmt), wl = w * 0.0107 * 1, wh = w * 3 * 0.153;
+    if (w) { low += wl; high += wh; }
+    issues.push({ sev: "med", t: "Contractor who may be an employee", d: w ? "Back payroll taxes if reclassified. The low end assumes the IRS settlement program. The high end, 3 years at full rates." : "Enter what you pay contractors to see a range.", amt: w ? usd(wl) + " to " + usd(wh) : "", pts: 12 });
+  }
+  if ((A.devs === "abroad" || A.devs === "mix") && A.w8 && A.w8 !== "y") {
+    issues.push({ sev: "med", t: "Contractors abroad: paperwork", d: "Buyers ask for a W-8BEN for each one. Also worth checking: any work done in the US by people paid abroad.", amt: "Flag", pts: 8 });
+  }
+
+  /* entity and sale structure */
+  if (A.entity === "c") issues.push({ sev: "med", t: "C corp: stock or asset sale", d: "Buyers often push for an asset sale, which can mean tax at the company and again when you take the cash out. Whether QSBS could apply is worth checking.", amt: "Plan", pts: 6 });
+  if (A.entity === "llc") issues.push({ sev: "low", t: "LLC: sale structure", d: "Usually sold as assets. How the price is split across assets changes your tax. Worth planning before the letter of intent.", amt: "Plan", pts: 3 });
+  if (A.entity === "s") issues.push({ sev: "med", t: "S corp: election and structure", d: "Buyers check that the S election was valid every year, and may ask for a restructuring before close.", amt: "Check", pts: 6 });
+  if (A.entity === "u") issues.push({ sev: "med", t: "Entity type: worth checking", d: "How the company is taxed decides how a sale is structured. It's the first thing to confirm.", amt: "Check", pts: 6 });
+
+  /* deferred revenue */
+  if (A.prepay === "y") issues.push({ sev: "med", t: "Deferred revenue", d: "Prepaid plans are service the buyer still owes. Expect a price discussion, and check how the tax timing differs from your books.", amt: "Flag", pts: 6 });
+
+  if (A.remote) issues.push({ sev: "med", t: "Remote employees", d: "Can create payroll withholding and state income tax filings in their states.", amt: "Flag", pts: 6 });
+  if (A.no1099) issues.push({ sev: "low", t: "Missing 1099s", d: "Penalties per form, plus backup withholding if there's no W-9 on file.", amt: "Flag", pts: 4 });
+
+  issues.forEach(function (i) { pts -= i.pts; });
+  var answered = ["entity", "rev", "where", "collect", "devs", "prepay", "timing"].filter(function (k) { return A[k]; }).length;
+  issues.sort(function (a, b) { var o = { high: 0, med: 1, low: 2 }; return o[a.sev] - o[b.sev]; });
+  return { issues: issues, low: low, high: high, score: Math.max(15, pts), answered: answered };
+}
+function grade(s) { return s >= 85 ? ["Looks clean so far", "Nothing major from your answers. A records review confirms it before a buyer does."] : s >= 65 ? ["Some cleanup needed", "A buyer will find a few things. Most are cheaper to fix now than to negotiate later."] : s >= 45 ? ["Expect a price discussion", "These issues often lead to a lower price, a bigger escrow or a special indemnity."] : ["High risk in diligence", "Worth fixing before you talk to buyers. Several can be resolved through state programs."]; }
+function renderResult() {
+  var r = score(), g = grade(r.score), C = 2 * Math.PI * 48, off = C * (1 - r.score / 100);
+  var note = function (a) { return a === "Plan" ? "Worth planning" : (a === "Flag" || a === "Check" || !a) ? "Worth checking" : a; };
+  var h = '<div class="rs-head"><svg class="dial" viewBox="0 0 112 112" role="img" aria-label="Readiness score ' + r.score + ' out of 100"><circle class="trk" cx="56" cy="56" r="48" fill="none" stroke-width="7"/><circle class="val" cx="56" cy="56" r="48" fill="none" stroke-width="7" stroke-linecap="round" stroke-dasharray="' + C.toFixed(1) + '" stroke-dashoffset="' + off.toFixed(1) + '" transform="rotate(-90 56 56)"/><text x="56" y="62" text-anchor="middle" font-size="30">' + r.score + '</text></svg>' +
+    '<div><p class="rs-k">Readiness score out of 100</p><h3>' + esc(g[0]) + '</h3><p>' + esc(g[1]) + '</p></div></div>';
+  if (r.high > 0) h += '<div class="rs-range"><span>What a buyer could price in, roughly</span><b>' + usd(r.low) + ' to ' + usd(r.high) + '</b></div>';
+  if (r.issues.length) h += '<ul class="rs-list">' + r.issues.map(function (i) { return '<li class="' + i.sev + '"><details><summary><span class="t">' + esc(i.t) + '</span><span class="a">' + esc(/\$/.test(i.amt) ? i.amt : note(i.amt)) + '</span></summary><p>' + esc(i.d) + '</p></details></li>'; }).join("") + '</ul>';
+  else h += '<p class="rs-empty">Nothing stood out from your answers. A review of your records confirms it before a buyer does.</p>';
+  h += '<div class="rs-act"><button class="btn solid" type="button" data-plan="review" data-from="result">Get the full review</button><button class="btn" type="button" data-plan="check" data-from="result">Talk to us, free</button><button class="text-link" type="button" id="wz-restart">Start over</button></div>' +
+    '<p class="fine">A rough estimate from your answers, not a state-by-state analysis and not tax advice.</p>';
+  $("#result").innerHTML = h;
+}
+
+function shown(rule) { var p = rule.split("="); return p[1].split(",").indexOf(A[p[0]]) > -1; }
+function syncForm() {
+  $$(".seg").forEach(function (g) { var k = g.dataset.q; $$("button", g).forEach(function (b) { b.setAttribute("aria-pressed", String(A[k] === b.dataset.v)); }); });
+  $$("[data-show]").forEach(function (el) { el.hidden = !shown(el.dataset.show); });
+  $$("[data-num]").forEach(function (el) { var k = el.dataset.num; if (document.activeElement !== el && A[k] != null && A[k] !== "") el.value = Number(num(A[k])).toLocaleString("en-US"); });
+  $$("[data-flag]").forEach(function (el) { el.checked = !!A[el.dataset.flag]; });
+}
+if ($("#qform")) {
+  var steps = $$("#qform > .q"), W = { i: 0, done: false }, back = $("#wz-back"), next = $("#wz-next");
+  var answered = function (st) { return $$(".seg", st).some(function (g) { return !!A[g.dataset.q]; }) || $$("[data-flag]", st).some(function (c) { return c.checked; }); };
+  var go = function (focus) {
+    steps.forEach(function (st, k) { st.hidden = W.done || k !== W.i; });
+    $("#qform").hidden = W.done; $(".wz-nav").hidden = W.done; $("#result").hidden = !W.done;
+    $("#wz-step").textContent = W.done ? "Your result" : "Question " + (W.i + 1) + " of " + steps.length;
+    $("#wz-fill").style.width = (W.done ? 100 : (W.i / steps.length) * 100) + "%";
+    back.disabled = W.i === 0;
+    var ok = answered(steps[W.i]); next.textContent = W.i === steps.length - 1 ? "See my result" : ok ? "Next" : "Skip"; next.className = "btn" + (ok || W.i === steps.length - 1 ? " solid" : "");
+    if (W.done) { renderResult(); track("check_complete"); }
+    if (focus) { var t = W.done ? $("#result h3") : $(".ql", steps[W.i]); if (t) { if (!t.hasAttribute("tabindex")) t.setAttribute("tabindex", "-1"); t.focus({ preventScroll: true }); } }
+  };
+  var forward = function () { if (W.i < steps.length - 1) W.i++; else W.done = true; go(true); };
+  var changed = function () { LS.set("td-saas-answers", A); syncForm(); var ok = answered(steps[W.i]); next.textContent = W.i === steps.length - 1 ? "See my result" : ok ? "Next" : "Skip"; next.className = "btn" + (ok || W.i === steps.length - 1 ? " solid" : ""); };
+  var timer = 0;
+  $("#qform").addEventListener("click", function (e) {
+    var b = e.target.closest(".seg button"); if (!b) return;
+    var k = b.parentNode.dataset.q; A[k] = A[k] === b.dataset.v ? "" : b.dataset.v; changed();
+    // single-choice questions move on by themselves; ones that open follow-ups wait for Next
+    var st = steps[W.i], follow = $$("[data-show]", st).some(function (el) { return !el.hidden; });
+    clearTimeout(timer);
+    if (A[k] && b.parentNode.parentNode === st && !follow && W.i < steps.length - 1) timer = setTimeout(forward, 320);
+  });
+  $("#qform").addEventListener("input", function (e) { var t = e.target; if (t.dataset.num) { A[t.dataset.num] = t.value; LS.set("td-saas-answers", A); } });
+  $("#qform").addEventListener("change", function (e) { var t = e.target; if (t.dataset.flag) { A[t.dataset.flag] = t.checked; changed(); } if (t.dataset.num) syncForm(); });
+  next.addEventListener("click", function () { clearTimeout(timer); forward(); });
+  back.addEventListener("click", function () { clearTimeout(timer); if (W.i > 0) W.i--; go(true); });
+  document.addEventListener("click", function (e) { if (e.target.id === "wz-restart") { A = {}; LS.set("td-saas-answers", A); W = { i: 0, done: false }; syncForm(); go(true); } });
+  syncForm(); go(false);
+}
+
+/* ----------------------------------------------------------------- agent replay */
+var FEED = [
+  { t: "Monday", h: "Got your Stripe export, two years of returns and the QuickBooks file. Reading them now.", src: ["Stripe export, page 3", "2025 revenue $2,400,000. Matches the books."] },
+  { h: "You billed <b>$956k</b> to customers in Texas, Washington, Tennessee and Pennsylvania last year. Software is generally taxable in all four, and no tax was collected. Are any of these customers exempt?" },
+  { me: true, h: "A few are school districts in Texas. Sending the certificates we have." },
+  { t: "Wednesday", h: "All 14 files read, every number checked against its page. I found <b>6 issues</b> a buyer will flag. Fixing them now costs about <b>$160k</b>. If a buyer finds them, expect <b>$240k to $420k</b> off the price or held back." },
+  { t: "Day 9", me: true, h: "What's the biggest one?" },
+  { h: "Sales tax in four states: <b>$150,400</b> to fix now through each state's disclosure program. Your CPA can file these.", src: ["Stripe export, page 3", "Texas $540,000, no tax collected."] },
+  { me: true, h: "Send me the summary for my CPA." },
+  { t: "Day 24", h: "Two offers in. After tax, <b>Buyer A leaves you about $138k more</b> than Buyer B, mostly from the earnout terms and deferred revenue." },
+  { t: "Day 33", h: "The buyer sent 22 diligence requests. 15 are ready from your records, 2 need something from you, and I'm holding 5 for your decision." },
+  { me: true, h: "Send the 15." },
+  { t: "Day 37", h: "The purchase agreement draft is in. I listed <b>9 tax points</b> for your attorney, including the $190k escrow the buyer will likely ask for." }
+];
+var DOCICON = '<svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M4 1.5h5.5L13 5v9.5H4z M9.5 1.5V5H13" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>';
+function msgHTML(m) { return (m.t ? '<div class="stamp">' + esc(m.t) + "</div>" : "") + '<div class="bub' + (m.me ? " me" : "") + '">' + m.h + (m.src ? '<span class="src"><small>' + DOCICON + esc(m.src[0]) + "</small>" + esc(m.src[1]) + "</span>" : "") + "</div>"; }
+
+var feed = $("#feed"), timer = null;
+if (feed) {
+  feed.innerHTML = FEED.map(msgHTML).join("");
+  var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var replay = function () {
+    clearTimeout(timer); var i = 0; feed.innerHTML = ""; $("#replay-state").textContent = "Replaying the sample sale";
+    (function step() {
+      var tw = $(".typing", feed); if (tw) tw.remove();
+      if (i >= FEED.length) { $("#replay-state").textContent = "A sample sale, six weeks in one minute"; return; }
+      var m = FEED[i++];
+      feed.insertAdjacentHTML("beforeend", msgHTML(m));
+      var nxt = FEED[i];
+      if (nxt && !nxt.me && !reduce) feed.insertAdjacentHTML("beforeend", '<div class="typing" aria-hidden="true"><i></i><i></i><i></i></div>');
+      feed.scrollTo({ top: feed.scrollHeight, behavior: reduce ? "auto" : "smooth" });
+      timer = setTimeout(step, nxt && nxt.me ? 1100 : 1700);
+    })();
+  };
+  // play once when the card first comes into view
+  if (!reduce && "IntersectionObserver" in window) {
+    var seen = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { seen.disconnect(); replay(); } }, { threshold: 0.5 });
+    seen.observe(feed);
+  }
+  $("#replay").addEventListener("click", function () { track("replay"); replay(); });
+}
+
+var foot = $("#foot-contact"); if (foot && CONFIG.contactEmail) { foot.innerHTML = '<a href="mailto:' + esc(CONFIG.contactEmail) + '">' + esc(CONFIG.contactEmail) + "</a>"; $("#foot-contact-col").hidden = false; }
+
+/* ----------------------------------------------------------------- sending */
+function hosted() { return /^https?:$/.test(location.protocol) && !/claude\.(ai|site)|claudeusercontent/.test(location.hostname); }
+function ref() { return "L-" + Date.now().toString(36).toUpperCase().slice(-6); }
+function send(formName, fields) {
+  if (hosted()) {
+    var body = Object.assign({ form: formName }, fields);
+    return fetch(CONFIG.apiEndpoint, { method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" }, body: JSON.stringify(body) })
+      .then(function (res) { return res.json().catch(function () { return {}; }).then(function (d) { if (!res.ok) throw (d && d.error) || "Couldn't send right now. Try again in a minute."; return d.ref || ref(); }); },
+        function () { throw "No connection. Check your internet and try again."; });
+  }
+  return capReady.then(function () { if (!Cap.db || !Cap.uid) throw "nowhere"; return Cap.db.doc(formName + "/" + Cap.uid).set(fields).then(ref, function () { throw "nowhere"; }); });
+}
+
+/* ----------------------------------------------------------------- sign-up dialog */
+var BUYER = { findings: 1, deal: 1 };
+var PLAN = function (id) { return Object.assign({ id: id }, CONFIG.plans[id]); };
+var M = { open: false };
+document.addEventListener("click", function (e) { var b = e.target.closest("[data-plan]"); if (!b) return; openModal(b.dataset.plan, b.dataset.from || ""); });
+var lastFocus = null;
+function openModal(id, from) { lastFocus = document.activeElement; document.documentElement.classList.add("modal-open"); M = { open: true, plan: PLAN(id), from: from, state: "idle", err: {}, ref: "" }; track("cta_" + id); renderModal(); setTimeout(function () { var f = $("#m-name"); if (f) f.focus(); }, 30); }
+function closeModal() { M.open = false; renderModal(); document.documentElement.classList.remove("modal-open"); if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true }); }
+function opts(list, cur) { return list.map(function (o) { return '<option value="' + esc(o[0]) + '"' + (cur === o[0] ? " selected" : "") + ">" + esc(o[1]) + "</option>"; }).join(""); }
+function renderModal() {
+  var root = $("#modal-root"); if (!M.open) { root.innerHTML = ""; return; }
+  var p = M.plan, v = LS.get("td-contact", {}), e = M.err, r = score(), buyer = !!BUYER[p.id];
+  if (!v.size && A.rev && !buyer) v.size = REV_LABEL[A.rev];
+  function f(id, label, type, ac) { return '<label class="f" for="m-' + id + '">' + label + '<input id="m-' + id + '" type="' + type + '" autocomplete="' + ac + '" value="' + esc(v[id] || "") + '"' + (e[id] ? ' aria-invalid="true"' : "") + ">" + (e[id] ? '<span class="err">' + esc(e[id]) + "</span>" : "") + "</label>"; }
+  var roles = buyer ? [["individual", "An individual buyer"], ["holdco", "A holding company or roll-up"], ["strategic", "A company buying a competitor"], ["fund", "A fund or search fund"], ["advisor", "An advisor to a buyer"]]
+    : [["owner", "An owner or founder"], ["co-owner", "A co-owner"], ["broker", "A broker or M&A advisor"], ["cpa", "A CPA"], ["attorney", "An attorney"]];
+  var sizes = [["Under $1M", "Under $1M"], ["$1M to $5M", "$1M to $5M"], ["$5M to $15M", "$5M to $15M"], ["Over $15M", "Over $15M"]];
+  var body;
+  if (M.state === "saved") {
+    body = '<h3 id="m-title">Received</h3><p>Thanks. We\'ll reply by email to confirm scope and next steps.</p><p class="fine">Reference ' + esc(M.ref) + '</p><div class="row"><button class="btn solid" type="button" data-close>Done</button></div>';
+  } else if (M.state === "nowhere") {
+    var txt = "Request: " + p.name + "\nName: " + (v.name || "") + "\nEmail: " + (v.email || "") + "\nRole: " + (v.role || "");
+    body = '<h3 id="m-title">Almost there</h3><p>This preview can\'t send forms. ' + (CONFIG.contactEmail ? "Email these details to " + esc(CONFIG.contactEmail) + "." : "It will work once the site is live.") + '</p><div class="copybox" id="m-copy">' + esc(txt) + '</div><div class="row"><button class="btn" type="button" data-close>Close</button></div>';
+  } else {
+    body = '<div class="kicker">' + (buyer ? "For buyers" : "For sellers") + '</div><h3 id="m-title">' + (p.id === "check" ? "Talk to us" : p.id === "findings" ? "Send us the data room" : p.id === "deal" ? "Get buyer support" : "Request a review") + "</h3>" +
+      '<div class="chosen"><span>' + esc(p.name) + "</span></div>" + "<p>We\'ll reply by email to confirm scope and next steps.</p>" +
+      '<form id="mform" novalidate style="display:grid;gap:14px">' + f("name", "Your name", "text", "name") + f("email", "Work email", "email", "email") +
+      '<div class="two"><label class="f" for="m-role">I am<select id="m-role">' + opts(roles, v.role) + "</select></label>" +
+      (buyer ? '<label class="f" for="m-loi">Deal status<select id="m-loi">' + opts([["signed", "LOI signed"], ["soon", "LOI in the next 30 days"], ["looking", "Still looking"]], v.loi) + "</select></label>"
+        : '<label class="f" for="m-size">Annual revenue<select id="m-size">' + opts(sizes, v.size) + "</select></label>") + "</div>" +
+      (r.answered && !buyer ? '<p class="fine" style="margin:0">Your check results (score ' + r.score + (r.high ? ", " + usd(r.low) + " to " + usd(r.high) : "") + ") will be included.</p>" : "") +
+      '<label class="check"><input type="checkbox" id="m-consent"' + (v.consent ? " checked" : "") + "> Lockwood may contact me about this request.</label>" + (e.consent ? '<span class="err">' + esc(e.consent) + "</span>" : "") +
+      '<div class="row" style="margin-top:4px"><button class="btn solid" type="submit"' + (M.state === "saving" ? " disabled" : "") + ">" + (M.state === "saving" ? "Sending" : "Send request") + '</button><button class="btn" type="button" data-close>Cancel</button></div>' +
+      (M.state === "failed" ? '<p class="err" role="alert">Not sent. ' + esc(M.msg) + "</p>" : "") + "</form>";
+  }
+  root.innerHTML = '<div class="overlay" data-close-bg><div class="dialog" role="dialog" aria-modal="true" aria-labelledby="m-title">' + body + "</div></div>";
+  if (M.state === "saved" || M.state === "nowhere" || M.state === "failed") { var d = $(M.state === "failed" ? ".dialog .err" : ".dialog [data-close]"); if (d) { if (!d.hasAttribute("tabindex")) d.setAttribute("tabindex", "-1"); d.focus(); } }
+}
+document.addEventListener("click", function (e) { if (e.target.closest("[data-close]") || e.target.matches("[data-close-bg]")) closeModal(); });
+document.addEventListener("keydown", function (e) {
+  if (!M.open || e.key !== "Tab") return;
+  var f = $$('.dialog a[href], .dialog button:not([disabled]), .dialog input, .dialog select, .dialog textarea').filter(function (el) { return el.offsetParent !== null; });
+  if (!f.length) return;
+  var first = f[0], last = f[f.length - 1];
+  if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+  else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+});
+document.addEventListener("keydown", function (e) { if (e.key === "Escape" && M.open) closeModal(); });
+document.addEventListener("submit", function (e) {
+  if (e.target.id !== "mform") return; e.preventDefault();
+  var p = M.plan, g = function (id) { var el = $("#m-" + id); return el ? el.value.trim() : ""; };
+  var v = { name: g("name"), email: g("email"), role: g("role"), size: g("size"), loi: g("loi"), consent: $("#m-consent").checked };
+  LS.set("td-contact", v);
+  var err = {}; if (v.name.length < 2) err.name = "Enter your name."; if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.email)) err.email = "Enter an email like you@company.com."; if (!v.consent) err.consent = "Check the box so we can reply.";
+  M.err = err; if (Object.keys(err).length) { renderModal(); var x = $('[aria-invalid="true"]'); if (x) x.focus(); return; }
+  M.state = "saving"; renderModal();
+  var r = score(), withCheck = !!r.answered && !BUYER[p.id];
+  var fields = { name: v.name, email: v.email, role: v.role, firm: "", size: v.size, loi: v.loi, plan: p.id, price: p.price || 0, page: PAGE, from: M.from, timing: A.timing || "",
+    check_score: withCheck ? r.score : "", check_range: withCheck && r.high ? usd(r.low) + " to " + usd(r.high) : "", check_issues: withCheck ? r.issues.map(function (i) { return i.t; }).join("; ") : "",
+    ref: SRC.ref || "", campaign: SRC.campaign || "", created: new Date().toISOString() };
+  send("lead", fields).then(function (rf) { M.state = "saved"; M.ref = rf; track("lead_" + p.id); renderModal(); },
+    function (er) { if (er === "nowhere") { M.state = "nowhere"; renderModal(); return; } M.state = "failed"; M.msg = (typeof er === "string" ? er : "Please try again in a minute.") + (CONFIG.contactEmail ? " Or email " + CONFIG.contactEmail + "." : ""); renderModal(); });
+});
+
+/* ----------------------------------------------------------------- checklist email (hero and footer forms) */
+function wireChecklist(pre, from) {
+  var uf = $("#" + pre + "form");
+  if (!uf) return;
+  uf.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var em = $("#" + pre + "-email").value.trim(), msg = $("#" + pre + "-msg"), btn = $("#" + pre + "-btn");
+    if ($("#" + pre + "-bot").value) return;
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em)) { msg.textContent = "Enter an email like you@company.com."; msg.style.color = "var(--red)"; $("#" + pre + "-email").setAttribute("aria-invalid", "true"); return; }
+    $("#" + pre + "-email").removeAttribute("aria-invalid");
+    btn.disabled = true; msg.style.color = ""; msg.textContent = "Sending";
+    send("updates", { email: em, page: PAGE + (from ? "/" + from : ""), ref: SRC.ref || "", created: new Date().toISOString() }).then(function () {
+      track("lead_updates" + (from ? "_" + from : "")); uf.hidden = true; msg.textContent = "Thank you. The checklist is on its way to " + em + ".";
+    }, function (er) { btn.disabled = false; msg.style.color = "var(--red)"; msg.textContent = er === "nowhere" ? "This preview can't send forms. It will work once the site is live." : (typeof er === "string" ? er : "Couldn't send right now. Try again in a minute.") + (CONFIG.contactEmail ? " Or email " + CONFIG.contactEmail + "." : ""); });
+  });
+}
+wireChecklist("u", "");
+wireChecklist("h", "hero");
+})();
+</script>
+</body>
+</html>
