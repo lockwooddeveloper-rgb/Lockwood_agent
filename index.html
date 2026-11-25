@@ -322,6 +322,9 @@ var CONFIG = {
   // Sign-ups post here. Paste the Google Apps Script "Web app URL" (ends in /exec) to save them
   // to the Google Sheet; see google-sheets/Code.gs next to this site folder for setup.
   apiEndpoint: "netlify",   // "netlify" = Netlify Forms (see the hidden forms after <body>)
+  // Every sign-up is also copied to this Google Sheet (Apps Script web app, ends in /exec).
+  // Best effort: if it fails, Netlify Forms still has the entry. Set to "" to turn off.
+  sheetEndpoint: "https://script.google.com/macros/s/AKfycbxLlwaws32EL-_zJYuTIUV4jPufsQvSGVwE_SHgBd1-SszpQR_2-SC-d4Jhl6cw7Mlf/exec",
   contactEmail: "",   // Set once the new domain email exists, e.g. "hello@yourdomain.com"
   plans: {
     check: { name: "Readiness check", price: 0, unit: "", blurb: "The check on this page, then a reply from us with next steps.",
@@ -517,8 +520,16 @@ var foot = $("#foot-contact"); if (foot && CONFIG.contactEmail) { foot.innerHTML
 /* ----------------------------------------------------------------- sending */
 function hosted() { return /^https?:$/.test(location.protocol) && !/claude\.(ai|site)|claudeusercontent/.test(location.hostname); }
 function ref() { return "L-" + Date.now().toString(36).toUpperCase().slice(-6); }
+function copyToSheet(formName, fields) {
+  if (!CONFIG.sheetEndpoint) return;
+  try {
+    fetch(CONFIG.sheetEndpoint, { method: "POST", mode: "no-cors", keepalive: true,
+      headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(Object.assign({ form: formName }, fields)) }).catch(function () {});
+  } catch (e) {}
+}
 function send(formName, fields) {
   if (hosted() && CONFIG.apiEndpoint === "netlify") {
+    copyToSheet(formName, fields);
     var data = Object.assign({ "form-name": formName }, fields), enc = Object.keys(data).map(function (k) { return encodeURIComponent(k) + "=" + encodeURIComponent(data[k] == null ? "" : String(data[k])); }).join("&");
     return fetch("/", { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: enc })
       .then(function (res) { if (!res.ok) throw "Couldn't send right now. Try again in a minute."; return ref(); },
