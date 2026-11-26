@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Asset vs stock: what you keep | Lockwood</title>
+<meta name="description" content="Compare an asset sale and a stock sale on what an S corp owner keeps after federal and state tax.">
+<link rel="canonical" href="https://meetlockwood.com/tools/asset-vs-stock/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230E2F33'/%3E%3Ctext x='16' y='23' text-anchor='middle' font-family='Georgia,serif' font-size='21' fill='%239FC9C3'%3EL%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Public+Sans:wght@400;500;600&display=swap">
+<style>
+:root { --deep:#0E2F33; --current:#2C6E6F; --clear:#9FC9C3; --stone:#56625F; --mist:#F1F5F4; --willow:#5A6C43;
+  --deep-2:#17434A; --white:#FFFFFF; --ink:#13201F; --ink-3:#7A8684; --rule:#DCE4E2; --rule-2:#C3D0CD; --red:#9B3D2E;
+  --serif:"Newsreader", Georgia, serif; --sans:"Public Sans", system-ui, sans-serif; }
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { background: var(--white); color: var(--ink); font: 16px/1.55 var(--sans); -webkit-font-smoothing: antialiased; }
+a { color: var(--current); }
+.top { background: var(--deep); color: #fff; }
+.top .wrap { display: flex; align-items: center; justify-content: space-between; padding-top: 16px; padding-bottom: 16px; }
+.brand { font-family: var(--serif); font-size: 22px; color: #fff; text-decoration: none; }
+.top a.home { color: var(--clear); font-size: 14px; text-decoration: none; }
+.wrap { max-width: 920px; margin: 0 auto; padding-left: 16px; padding-right: 16px; }
+.hero { background: var(--deep); color: #fff; padding: 28px 0 40px; }
+.kicker { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--clear); font-weight: 600; }
+h1, h2 { font-family: var(--serif); font-weight: 400; letter-spacing: -0.015em; line-height: 1.1; }
+h1 { font-size: clamp(32px, 6vw, 48px); margin: 8px 0 12px; }
+h2 { font-size: 26px; margin: 0 0 12px; }
+.hero p { color: #D6E4E1; max-width: 640px; margin: 0; }
+main { padding: 28px 0 48px; }
+.panel { background: var(--mist); border: 1px solid var(--rule); border-radius: 10px; padding: 18px; }
+.grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+label.f { display: grid; gap: 6px; font-size: 14px; font-weight: 500; color: var(--ink); }
+label.f small { font-weight: 400; color: var(--stone); }
+input, select { font: inherit; padding: 10px 12px; border: 1px solid var(--rule-2); border-radius: 8px; background: #fff; width: 100%; min-width: 0; }
+input:focus, select:focus { outline: 2px solid var(--current); outline-offset: 1px; }
+.btn { display: inline-block; font: 600 15px var(--sans); padding: 12px 18px; border-radius: 8px; border: 1px solid var(--deep); background: #fff; color: var(--deep); text-decoration: none; cursor: pointer; }
+.btn.solid { background: var(--deep); color: #fff; }
+.row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.result { margin-top: 22px; }
+.cards { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+.card { border: 1px solid var(--rule); border-radius: 10px; padding: 16px; background: #fff; }
+.card .lbl { font-size: 13px; color: var(--stone); }
+.card .big { font-family: var(--serif); font-size: 30px; color: var(--willow); line-height: 1.15; margin-top: 4px; }
+.card.win { border-color: var(--current); box-shadow: 0 0 0 1px var(--current) inset; }
+.note { font-size: 14px; color: var(--stone); }
+.math { font-size: 14px; color: var(--stone); margin: 8px 0 0; padding-left: 18px; }
+.math li { margin: 3px 0; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { font-weight: 600; color: var(--stone); font-size: 13px; }
+td.n, th.n { text-align: right; white-space: nowrap; }
+.tablewrap { overflow-x: auto; }
+.cta { margin-top: 28px; background: var(--deep); color: #fff; border-radius: 12px; padding: 22px; }
+.cta h2 { color: #fff; }
+.cta p { color: #D6E4E1; margin: 0 0 14px; }
+.cta .btn { background: var(--clear); border-color: var(--clear); color: var(--deep); }
+.cta .btn.ghost { background: transparent; color: #fff; border-color: #6F9893; }
+.fine { font-size: 13px; color: var(--ink-3); margin-top: 22px; }
+.err { color: var(--red); font-size: 14px; }
+details summary { cursor: pointer; color: var(--current); font-weight: 500; }
+footer { border-top: 1px solid var(--rule); padding: 20px 0 32px; font-size: 13px; color: var(--ink-3); }
+@media (max-width: 520px) { .card .big { font-size: 26px; } h1 { font-size: 32px; } }
+</style>
+</head>
+<body data-tool="asset-vs-stock">
+<header class="top"><div class="wrap"><a class="brand" href="https://meetlockwood.com/" data-keep-utm>Lockwood</a><a class="home" href="https://meetlockwood.com/tools/">Free tools</a></div></header>
+<section class="hero"><div class="wrap"><div class="kicker">Free calculator for sellers</div><h1>Asset vs stock: what you keep</h1><p>Enter the price, your stock basis and how the buyer splits the asset price. See what you keep each way after federal and state tax, and the asset price that would make them even.</p></div></section>
+<main><div class="wrap">
+
+<form class="panel" id="f" novalidate>
+  <div class="grid">
+    <label class="f">Your state<select id="state"><option value="AL">Alabama</option><option value="AK">Alaska</option><option value="AZ">Arizona</option><option value="AR">Arkansas</option><option value="CA">California</option><option value="CO">Colorado</option><option value="CT">Connecticut</option><option value="DE">Delaware</option><option value="DC">District of Columbia</option><option value="FL">Florida</option><option value="GA">Georgia</option><option value="HI">Hawaii</option><option value="ID">Idaho</option><option value="IL">Illinois</option><option value="IN">Indiana</option><option value="IA">Iowa</option><option value="KS">Kansas</option><option value="KY">Kentucky</option><option value="LA">Louisiana</option><option value="ME">Maine</option><option value="MD">Maryland</option><option value="MA">Massachusetts</option><option value="MI">Michigan</option><option value="MN">Minnesota</option><option value="MS">Mississippi</option><option value="MO">Missouri</option><option value="MT">Montana</option><option value="NE">Nebraska</option><option value="NV">Nevada</option><option value="NH">New Hampshire</option><option value="NJ">New Jersey</option><option value="NM">New Mexico</option><option value="NY">New York</option><option value="NC">North Carolina</option><option value="ND">North Dakota</option><option value="OH">Ohio</option><option value="OK">Oklahoma</option><option value="OR">Oregon</option><option value="PA">Pennsylvania</option><option value="RI">Rhode Island</option><option value="SC">South Carolina</option><option value="SD">South Dakota</option><option value="TN">Tennessee</option><option value="TX" selected>Texas</option><option value="UT">Utah</option><option value="VT">Vermont</option><option value="VA">Virginia</option><option value="WA">Washington</option><option value="WV">West Virginia</option><option value="WI">Wisconsin</option><option value="WY">Wyoming</option></select></label>
+    <label class="f">Price in a stock sale<input id="stock_price" inputmode="numeric" value="3,000,000"></label>
+    <label class="f">Price in an asset sale<small>Often higher, because the buyer gets the tax step-up</small><input id="asset_price" inputmode="numeric" value="3,000,000"></label>
+    <label class="f">Your stock basis<small>What you put in plus retained profits; your CPA knows it</small><input id="stock_basis" inputmode="numeric" value="200,000"></label>
+  </div>
+  <h2 style="margin-top:20px;font-size:21px">How the buyer splits the asset price</h2>
+  <p class="note" style="margin-top:0">Whatever you don't list here lands in goodwill, taxed as capital gain.</p>
+  <div class="grid">
+    <label class="f">Equipment and vehicles<input id="eq_amt" inputmode="numeric" value="300,000"></label>
+    <label class="f">Their tax basis now<small>Cost minus depreciation taken</small><input id="eq_basis" inputmode="numeric" value="50,000"></label>
+    <label class="f">Depreciation taken on them<input id="eq_dep" inputmode="numeric" value="250,000"></label>
+    <label class="f">Receivables and inventory<input id="ar_amt" inputmode="numeric" value="0"></label>
+    <label class="f">Their tax basis<small>Usually 0 for cash-basis receivables</small><input id="ar_basis" inputmode="numeric" value="0"></label>
+    <label class="f">Non-compete payment to you<small>Ordinary income</small><input id="nc_amt" inputmode="numeric" value="0"></label>
+  </div>
+  <details style="margin-top:16px"><summary>Escrow, seller note and costs</summary>
+    <div class="grid" style="margin-top:12px">
+      <label class="f">Escrow or holdback<input id="escrow" inputmode="numeric" value="0"></label>
+      <label class="f">Seller note<input id="note" inputmode="numeric" value="0"></label>
+      <label class="f">Broker fee and deal costs (% of price)<input id="costs" inputmode="decimal" value="5"></label>
+    </div>
+  </details>
+  <div class="row" style="margin-top:18px"><button class="btn solid" type="submit">Compare after tax</button><span class="note">For S corporation owners. Nothing you type leaves this page.</span></div>
+</form>
+<div id="out" class="result" aria-live="polite"></div>
+
+<section class="cta" aria-labelledby="cta-h">
+  <h2 id="cta-h">Know your number before the LOI</h2>
+  <p>The free readiness check looks for the tax issues a buyer&#39;s diligence will find, and gives a rough range for each one.</p>
+  <div class="row">
+    <a class="btn" href="https://meetlockwood.com/?utm_source=lockwood-tools&amp;utm_medium=asset-vs-stock&amp;utm_campaign=free-tools&amp;utm_content=check#check" data-keep-utm data-track="cta_check">Run the free readiness check</a>
+    <a class="btn ghost" href="https://meetlockwood.com/?utm_source=lockwood-tools&amp;utm_medium=asset-vs-stock&amp;utm_campaign=free-tools&amp;utm_content=buyer#buyers" data-keep-utm data-track="cta_buyer">Buying? Free tax findings on the data room</a>
+  </div>
+</section>
+<p class="fine">Estimates for a conversation with your CPA and attorney. Not tax or legal advice. The figures use stated assumptions and the top federal and state rates, and leave out facts this page can&#39;t see. Rules tables as of 2026-11-11. Built from the same rules and math as Lockwood's own reports.</p>
+</div></main>
+<footer><div class="wrap">Lockwood, tax diligence for small business sales. <a href="https://meetlockwood.com/" data-keep-utm>meetlockwood.com</a> · <a href="https://meetlockwood.com/tools/">More free tools</a></div></footer>
+<script>window.LW_DATA = {"T":{"defaults":{"niit":0.0,"state":null,"selling_costs":0.05,"salt_cap_room":0.0,"ordinary":0.37,"capital":0.2},"ptet":{"AK":{"name":"Alaska","has_ptet":false,"individual_top_rate":0.0,"verified":true},"AL":{"name":"Alabama","has_ptet":true,"rate":0.05,"individual_top_rate":0.05,"owner_benefit":"refundable_credit","credit_pct":1.0,"ptet_scope":"all","verified":true},"AR":{"name":"Arkansas","has_ptet":true,"rate":0.039,"individual_top_rate":0.039,"owner_benefit":"exclusion","credit_pct":1.0,"ptet_scope":"all","capital_gain_rate_factor":0.5,"ptet_capital_gain_rate_factor":0.5,"verified":true},"AZ":{"name":"Arizona","has_ptet":true,"rate":0.025,"individual_top_rate":0.025,"owner_benefit":"nonrefundable_credit","credit_pct":1.0,"ptet_scope":"all","verified":true},"CA":{"name":"California","has_ptet":true,"rate":0.093,"individual_top_rate":0.133,"owner_benefit":"nonrefundable_credit","credit_pct":1.0,"ptet_scope":"all","verified":true},"CO":{"name":"Colorado","has_ptet":true,"rate":0.044,"individual_top_rate":0.044,"owner_benefit":"refundable_credit","credit_pct":1.0,"ptet_scope":"all","verified":false},"CT":{"name":"Connecticut","has_ptet":true,"rate":0.0699,"individual_top_rate":0.0699,"owner_benefit":"partial_credit","credit_pct":0.875,"ptet_scope":"all","verified":true},"DC":{"name":"District of Columbia","has_ptet":false,"individual_top_rate":0.1075,"verified":true},"DE":{"name":"Delaware","has_ptet":false,"individual_top_rate":0.066,"verified":true},"FL":{"name":"Florida","has_ptet":false,"individual_top_rate":0.0,"verified":true},"GA":{"name":"Georgia","has_ptet":true,"rate":0.0499,"individual_top_rate":0.0499,"owner_benefit":"exclusion","credit_pct":1.0,"ptet_scope":"all","verified":true},"HI":{"name":"Hawaii","has_ptet":true,"rate":0.09,"individual_top_rate":0.11,"owner_benefit":"nonrefundable_credit","credit_pct":1.0,"ptet_scope":"all","verified":true},"IA":{"name":"Iowa","has_ptet":true,"rate":0.038,"individual_top_rate":0.038,"owner_benefit":"partial_credit","credit_pct":0.962,"ptet_scope":"all","verified":false},"ID":{"name":"Idaho","has_ptet":true,"rate":0.053,"individual_top_rate":0.053,"owner_benefit":"refundable_credit","credit_pct":1.0,"ptet_scope":"all","verified":false},"IL":{"name":"Illinois","has_ptet":true,"rate":0.0495,"individual_top_rate":0.0495,"owner_benefit":"credit","credit_pct":1.0,"ptet_scope":"all","verified":true},"IN":{"name":"Indiana","has_ptet":true,"rate":0.0295,"individual_top_rate":0.0295,"owner_benefit":"refundable_credit","credit_pct":1.0,"ptet_scope":"all","verified":true},"KS":{"name":"Kansas","has_ptet":true,"rate":0.0558,"individual_top_rate":0.0558,"owner_benefit":"credit","credit_pct":1.0,"ptet_scope":"all","verified":false},"KY":{"name":"Kentucky","has_ptet":true,"rate":0.035,"individual_top_rate":0.035,"owner_benefit":"refundable_credit","credit_pct":1.0,"ptet_scope":"all","verified":true},"LA":{"name":"Louisiana","has_ptet":true,"rate":0.03,"individual_top_rate":0.03,"owner_benefit":"exclusion","credit_pct":1.0,"ptet_scope":"all","verified":false},"MA":{"name":"Massachusetts","has_ptet":true,"rate":0.05,"individual_top_rate":0.09,"brackets":[[0,0.05],[1107750,0.09]],"individual_brackets":[[0,0.05],[1107750,0.09]],"owner_benefit":"partial_credit","credit_pct":0.9,"ptet_scope":"all","verified":true},"MD":{"name":"Maryland","has_ptet":true,"rate":0.0875,"individual_top_rate":0.0875,"owner_benefit":"credit_with_addback","credit_pct":1.0,"ptet_scope":"all","verified":true},"ME":{"name":"Maine","has_ptet":true,"rate":0.077,"individual_top_rate":0.0915,"individual_brackets":[[0,0.0715],[1500000,0.0915]],"owner_benefit":"partial_credit","credit_pct":0.9,"ptet_scope":"all","verified":true},"MI":{"name":"Michigan","has_ptet":true,"rate":0.0425,"individual_top_rate":0.0425,"owner_benefit":"refundable_credit","credit_pct":1.0,"ptet_scope":"all","verified":true},"MN":{"name":"Minnesota","has_ptet":true,"rate":0.0985,"individual_top_rate":0.0985,"owner_benefit":"refundable_credit","credit_pct":1.0,"ptet_scope":"all","verified":true},"MO":{"name":"Missouri","has_ptet":true,"rate":0.047,"individual_top_rate":0.047,"owner_benefit":"nonrefundable_credit","credit_pct":1.0,"ptet_scope":"all","verified":true},"MS":{"name":"Mississippi","has_ptet":true,"rate":0.05,"individual_top_rate":0.04,"owner_benefit":"refundable_credit","credit_pct":1.0,"ptet_scope":"all","verified":false},"MT":{"name":"Montana","has_ptet":true,"rate":0.0565,"individual_top_rate":0.0565,"owner_benefit":"refundable_credit","credit_pct":1.0,"ptet_scope":"all","capital_gain_rate_factor":0.7257,"ptet_capital_gain_rate_factor":1.0,"verified":false},"NC":{"name":"North Carolina","has_ptet":true,"rate":0.0399,"individual_top_rate":0.0399,"owner_benefit":"deduction","credit_pct":1.0,"ptet_scope":"all","verified":true},"ND":{"name":"North Dakota","has_ptet":false,"individual_top_rate":0.025,"verified":true},"NE":{"name":"Nebraska","has_ptet":true,"rate":0.0455,"individual_top_rate":0.0455,"owner_benefit":"refundable_credit","credit_pct":1.0,"ptet_scope":"all","verified":false},"NH":{"name":"New Hampshire","has_ptet":false,"individual_top_rate":0.0,"verified":true},"NJ":{"name":"New Jersey","has_ptet":true,"rate":0.109,"individual_top_rate":0.1075,"brackets":[[0,0.05675],[250000,0.0652],[1000000,0.109]],"owner_benefit":"refundable_credit","credit_pct":1.0,"ptet_scope":"all","verified":true},"NM":{"name":"New Mexico","has_ptet":true,"rate":0.059,"individual_top_rate":0.059,"owner_benefit":"credit","credit_pct":1.0,"ptet_scope":"all","verified":true},"NV":{"name":"Nevada","has_ptet":false,"individual_top_rate":0.0,"verified":true},"NY":{"name":"New York","has_ptet":true,"rate":0.109,"individual_top_rate":0.109,"brackets":[[0,0.0685],[2000000,0.0965],[5000000,0.103],[25000000,0.109]],"owner_benefit":"refundable_credit","credit_pct":1.0,"ptet_scope":"all","verified":true},"OH":{"name":"Ohio","has_ptet":true,"rate":0.03,"individual_top_rate":0.03,"owner_benefit":"refundable_credit","credit_pct":1.0,"ptet_scope":"all","verified":true},"OK":{"name":"Oklahoma","has_ptet":true,"rate":0.045,"individual_top_rate":0.045,"owner_benefit":"exclusion","credit_pct":1.0,"ptet_scope":"all","verified":false},"OR":{"name":"Oregon","has_ptet":true,"rate":0.099,"individual_top_rate":0.099,"brackets":[[0,0.09],[250000,0.099]],"owner_benefit":"credit","credit_pct":1.0,"ptet_scope":"all","verified":true},"PA":{"name":"Pennsylvania","has_ptet":false,"individual_top_rate":0.0307,"verified":true},"RI":{"name":"Rhode Island","has_ptet":true,"rate":0.0599,"individual_top_rate":0.0599,"owner_benefit":"partial_credit","credit_pct":0.9,"ptet_scope":"all","verified":false},"SC":{"name":"South Carolina","has_ptet":true,"rate":0.03,"individual_top_rate":0.0521,"owner_benefit":"exclusion","credit_pct":1.0,"ptet_scope":"ordinary_only","capital_gain_rate_factor":0.56,"ptet_capital_gain_rate_factor":1.0,"verified":true},"SD":{"name":"South Dakota","has_ptet":false,"individual_top_rate":0.0,"verified":true},"TN":{"name":"Tennessee","has_ptet":false,"individual_top_rate":0.0,"verified":true},"TX":{"name":"Texas","has_ptet":false,"individual_top_rate":0.0,"verified":true},"UT":{"name":"Utah","has_ptet":true,"rate":0.045,"individual_top_rate":0.045,"owner_benefit":"nonrefundable_credit","credit_pct":1.0,"ptet_scope":"all","verified":false},"VA":{"name":"Virginia","has_ptet":true,"rate":0.0575,"individual_top_rate":0.0575,"owner_benefit":"refundable_credit","credit_pct":1.0,"ptet_scope":"all","verified":true},"VT":{"name":"Vermont","has_ptet":false,"individual_top_rate":0.0875,"verified":true},"WA":{"name":"Washington","has_ptet":false,"individual_top_rate":0.0,"verified":true},"WI":{"name":"Wisconsin","has_ptet":true,"rate":0.079,"individual_top_rate":0.0765,"owner_benefit":"exclusion","credit_pct":1.0,"ptet_scope":"all","verified":true},"WV":{"name":"West Virginia","has_ptet":true,"rate":0.0482,"individual_top_rate":0.0482,"owner_benefit":"credit","credit_pct":1.0,"ptet_scope":"all","verified":false},"WY":{"name":"Wyoming","has_ptet":false,"individual_top_rate":0.0,"verified":true}}}};</script>
+<script src="../lwtools.js"></script>
+<script src="/lw.js" data-endpoint="/.netlify/functions/lw-collect" defer></script>
+<script>
+/* keep the visitor's own ad or community tags on links back to the site, so a check started here is credited to
+   where they came from; otherwise the link's own tool tags are used */
+(function () {
+  var q = new URLSearchParams(location.search), keep = {};
+  ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "gclid", "ref"].forEach(function (k) { if (q.get(k)) keep[k] = q.get(k); });
+  if (!keep.utm_source && !keep.ref && !keep.gclid) return;
+  document.querySelectorAll("a[data-keep-utm]").forEach(function (a) {
+    var u = new URL(a.href, location.href);
+    ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "gclid", "ref"].forEach(function (k) { u.searchParams.delete(k); });
+    Object.keys(keep).forEach(function (k) { u.searchParams.set(k, keep[k]); });
+    a.href = u.toString();
+  });
+})();
+function lwTrack(e, extra) { try { if (window.lw) window.lw.track(e, extra); if (window.plausible) window.plausible(e, { props: extra || {} }); } catch (x) {} }
+document.addEventListener("click", function (e) { var t = e.target.closest("[data-track]"); if (t) lwTrack(t.dataset.track, { tool: document.body.dataset.tool }); });
+var $ = function (s) { return document.querySelector(s); };
+function num(v) { var n = parseFloat(String(v || "").replace(/[$,\s]/g, "")); return isNaN(n) ? 0 : n; }
+function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+var money = LW.money;
+var completed = false;
+function done() { if (!completed) { completed = true; lwTrack("tool_complete", { tool: document.body.dataset.tool }); } }
+</script>
+
+<script>
+(function () {
+  var D = window.LW_DATA, T = D.T;
+  function run(e) {
+    if (e) e.preventDefault();
+    var g = function (id) { return num($("#" + id).value); };
+    var st = $("#state").value;
+    var deal = { stock_price: g("stock_price"), asset_price: g("asset_price"), stock_basis: g("stock_basis"),
+      escrow: g("escrow"), seller_note: g("note"), rates: { selling_costs: g("costs") / 100 },
+      allocation: {}, assets: {} };
+    if (!deal.stock_price || !deal.asset_price) { $("#out").innerHTML = '<p class="err">Enter both prices.</p>'; return; }
+    if (g("eq_amt")) { deal.allocation["Equipment"] = g("eq_amt"); deal.assets["Equipment"] = { basis: g("eq_basis"), depreciation: g("eq_dep") }; }
+    if (g("ar_amt")) { deal.allocation["Receivables"] = g("ar_amt"); deal.assets["Receivables"] = { basis: g("ar_basis"), depreciation: 0 }; }
+    if (g("nc_amt")) { deal.allocation["Non-compete"] = g("nc_amt"); }
+    var r = LW.compareStockAsset(T, deal, st), s = r.stock, a = r.asset, win = r.diff >= 0 ? "asset" : "stock";
+    var h = '<div class="cards">' +
+      card("Stock sale: you keep", s.after_tax, "Tax " + money(s.tax) + " (" + (s.effective_rate * 100).toFixed(1) + "% of net price)", win === "stock") +
+      card("Asset sale: you keep", a.after_tax, "Tax " + money(a.tax) + " (" + (a.effective_rate * 100).toFixed(1) + "%)" + (a.ptet ? ", with a PTET election" : ""), win === "asset") +
+      card("Difference", Math.abs(r.diff), (win === "asset" ? "more in the asset sale" : "more in the stock sale")) + "</div>";
+    h += '<p class="note" style="margin-top:14px">The asset price that would leave you the same as the stock sale: <b>' + money(r.breakeven) + "</b>" +
+      (deal.asset_price < r.breakeven ? ", " + money(r.breakeven - deal.asset_price) + " above the offer. That gap is the number to negotiate." : ".") + "</p>";
+    if (deal.escrow || deal.seller_note) h += '<p class="note">Cash at closing after escrow and the note: stock ' + money(s.cash_at_close) + ", asset " + money(a.cash_at_close) + ".</p>";
+    h += "<details style=\"margin-top:10px\"><summary>Show the math</summary><ul class=\"math\">" +
+      "<li>Stock sale: " + money(s.capital_gain) + " capital gain.</li>" +
+      a.lines.map(function (l) { return "<li>Asset sale, " + esc(l) + ".</li>"; }).join("") +
+      "<li>Asset sale: " + money(a.ordinary_income) + " ordinary income and " + money(a.capital_gain) + " capital gain after costs.</li>" +
+      "<li>Federal rates: " + (T.defaults.ordinary * 100).toFixed(0) + "% ordinary, " + (T.defaults.capital * 100).toFixed(0) + "% long-term capital gain (top 2026 rates). Net investment income tax assumed not to apply (you work in the business).</li>" +
+      "<li>" + esc(s.state_name) + ": " + (a.state_rate * 100).toFixed(2) + "% state rate on this gain" + (s.state_verified ? "" : " (table row not yet confirmed on the state's site)") + ".</li>" +
+      (r.ptet_available ? "<li>The asset sale assumes your S corp elects the state pass-through entity tax (PTET); without it you'd keep " + money(a.no_ptet) + ".</li>" : "<li>No PTET election in " + esc(s.state_name) + ".</li>") +
+      "<li>Not modeled: built-in gains tax, installment timing of the note, earnouts, state rules on which state taxes which gain, and your other income.</li></ul></details>";
+    $("#out").innerHTML = h;
+    done();
+  }
+  function card(lbl, n, sub, isWin) { return '<div class="card' + (isWin ? " win" : "") + '"><div class="lbl">' + lbl + '</div><div class="big">' + money(n) + '</div><div class="note">' + sub + "</div></div>"; }
+  $("#f").addEventListener("submit", run);
+  lwTrack("tool_start", { tool: "asset-vs-stock" });
+})();
+</script>
+
+</body>
+</html>
